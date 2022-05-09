@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignId('volunteer_id')->references('id')->on('users');
             $table->foreignId('request_id')->references('id')->on('users_volunteer_requests');
             $table->dateTime('start_date');
-            $table->dateTime('end_date');
+            $table->dateTime('end_date')->nullable();
             $table->string('comment')->nullable();
         });
     }

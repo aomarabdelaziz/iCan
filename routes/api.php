@@ -14,16 +14,23 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::post('/auth/register', [\App\Http\Controllers\Api\AuthController::class, 'register']);
-
-Route::post('/auth/login', [\App\Http\Controllers\Api\AuthController::class, 'login']);
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
+
+    Route::group(['prefix' => 'auth'] , function (){
+        Route::post('/register', [\App\Http\Controllers\Api\AuthController::class, 'register'])
+        ->withoutMiddleware('auth:sanctum');
+
+        Route::post('/login', [\App\Http\Controllers\Api\AuthController::class, 'login'])
+        ->withoutMiddleware('auth:sanctum');
+        Route::post('/logout', [\App\Http\Controllers\Api\AuthController::class , 'logout']);
+
+    });
+
     Route::get('/me', function(Request $request) {
         return auth()->user();
     });
 
-    Route::post('/auth/logout', [\App\Http\Controllers\Api\AuthController::class , 'logout']);
     Route::post('/product-create' , \App\Http\Controllers\Api\ProductController::class);
     Route::post('/store-create' , \App\Http\Controllers\Api\StoreController::class );
     Route::post('/center-create' , \App\Http\Controllers\Api\CenterController::class );
@@ -38,6 +45,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('/center-booking' , \App\Http\Controllers\Api\CenterBookingController::class);
     Route::post('/add-store-product' , \App\Http\Controllers\Api\AddStoreProductController::class);
     Route::post('/create-admin' , \App\Http\Controllers\Api\CreateAdminController::class);
+    Route::post('/end-volunteering' , \App\Http\Controllers\Api\VolunteerEndVolunteering::class);
 
 
 

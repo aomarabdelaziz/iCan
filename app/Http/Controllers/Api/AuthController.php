@@ -28,7 +28,7 @@ class AuthController extends Controller
             'password' => [Password::min(8)->letters()->mixedCase()->numbers() , 'confirmed'],
             'phone' => ['required' , 'regex:^01[0-2,5]\d{8}$^'],
             'national_id' => ['sometimes' , 'image' , 'mimes:jpg,png'],
-            'lisense_id' => ['sometimes' , 'image' , 'mimes:jpg,png'],
+            'license_id' => ['sometimes' , 'image' , 'mimes:jpg,png'],
             'role' => ['required' , 'string'],
             'volunteer_type' => ['sometimes' , 'string' , Rule::in(['sitter' , 'driver'])],
         ]);
@@ -44,7 +44,8 @@ class AuthController extends Controller
         {
 
            if(!$request->hasFile('national_id')){
-                return $this->error('Validation Error' , 401 ,'National id must be exist');
+
+                return $this->error('Validation error' , 401 ,'National id must be exist');
             }
 
             $national_path = Storage::disk('public')->put('images' , $request->file('national_id'));
@@ -52,7 +53,7 @@ class AuthController extends Controller
 
            if($validated['volunteer_type'] == 'driver'){
                 if(!$request->hasFile('license_id')){
-                    return $this->error('Validation Error' , 401 ,'Lisence id must be exist');
+                    return $this->error('Validation error' , 401 ,'Lisence id must be exist');
                 }
                 $License_path =  Storage::disk('public')->put('images' , $request->file('license_id'));
                 $validated['license_id'] = $License_path;
@@ -86,9 +87,10 @@ class AuthController extends Controller
             return $this->error('You must logout' , 401);
         }
 
+
         $attr = $request->validate([
             'email' => ['required' , 'string' , 'email:filter,rfc,dns'],
-            'password' => [Password::min(8)->letters()->mixedCase()->numbers()],
+            'password' => [Password::min(8)->letters()->mixedCase()->numbers() ],
         ]);
 
         if (!Auth::attempt($attr)) {

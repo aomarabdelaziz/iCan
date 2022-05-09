@@ -32,12 +32,15 @@ class VolunteerAcceptRequestController extends Controller
         }
 
         $validated = $validator->validated();
-        $isBusy = Volunteer::where('volunteer_id' , Auth::id())->where( 'end_date' ,'>', date("Y-m-d H:i:s") )->first();
+        $isBusy = Volunteer::where('volunteer_id' , Auth::id())->where( 'end_date' , '=' ,  '' )->first();
         if($isBusy){
             return $this->error('Validation Error' , 401 ,'You are busy');
         }
 
+
         $query = UsersVolunteerRequest::firstWhere(['id' => $validated['request_id'] , 'volunteer_id' => Auth::id()]);
+
+
         $user_id = $query->user_id;
         $query->update(['status' => ($validated['status'] == 1 ? 'accepted' : 'rejected')]);
 
@@ -46,7 +49,6 @@ class VolunteerAcceptRequestController extends Controller
                 'volunteer_id' => Auth::id(),
                 'request_id' => $validated['request_id'],
                 'start_date' => Carbon::now(),
-                'end_date' => Carbon::now()->addDays(5),
                 'comment' => ''
             ]);
 
