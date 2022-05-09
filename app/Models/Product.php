@@ -12,6 +12,7 @@ class Product extends Model
     public $timestamps = false;
 
     protected $fillable = [
+        'store_id',
         'name',
         'description',
         'price',
@@ -24,6 +25,7 @@ class Product extends Model
         $validated['image'] = $image_path;
         static::create(
             [
+                'store_id' => $validated['store_id'],
                 'name' => $validated['name'],
                 'description' => $validated['description'],
                 'price' => $validated['price'],

@@ -31,7 +31,6 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         return auth()->user();
     });
 
-    Route::post('/product-create' , \App\Http\Controllers\Api\ProductController::class);
     Route::post('/store-create' , \App\Http\Controllers\Api\StoreController::class );
     Route::post('/center-create' , \App\Http\Controllers\Api\CenterController::class );
     Route::post('/send-volunteer-request' , \App\Http\Controllers\Api\UserVolunteerRequestController::class);
@@ -48,5 +47,10 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('/end-volunteering' , \App\Http\Controllers\Api\VolunteerEndVolunteering::class);
 
 
+    Route::post('/product-create' , [\App\Http\Controllers\Api\ProductController::class , 'create']);
+    Route::delete('/product-delete', [\App\Http\Controllers\Api\ProductController::class , 'delete']);
+    Route::put('/product-update', [\App\Http\Controllers\Api\ProductController::class , 'updatePrice']);
+
+    Route::get('/get-volunteer-trip-data' , \App\Http\Controllers\Api\GetVolunteersTripData::class );
 
 });
