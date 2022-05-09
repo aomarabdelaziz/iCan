@@ -52,5 +52,5 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::put('/product-update', [\App\Http\Controllers\Api\ProductController::class , 'updatePrice']);
 
     Route::get('/get-volunteer-trip-data' , \App\Http\Controllers\Api\GetVolunteersTripData::class );
-
+    //end api route
 });
