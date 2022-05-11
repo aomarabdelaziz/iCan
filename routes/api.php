@@ -24,6 +24,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         Route::post('/login', [\App\Http\Controllers\Api\AuthController::class, 'login'])
         ->withoutMiddleware('auth:sanctum');
         Route::post('/logout', [\App\Http\Controllers\Api\AuthController::class , 'logout']);
+        Route::post('/change-password', [\App\Http\Controllers\Api\AuthController::class , 'changePassword']);
 
     });
 
@@ -52,5 +53,14 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::put('/product-update', [\App\Http\Controllers\Api\ProductController::class , 'updatePrice']);
 
     Route::get('/get-volunteer-trip-data' , \App\Http\Controllers\Api\GetVolunteersTripData::class );
+
+    //Route::post('/update-token' , [\App\Http\Controllers\Api\UpdateFCMTokenController::class , 'updateToken'])->name('fcmToken');
+    //Route::post('/send-notification',[\App\Http\Controllers\Api\SendNotification::class,'notification'])->name('notification');
+   // Route::post('/send-notification-now',[\App\Http\Controllers\Api\SendNotification::class,'notification'])->name('notification-no');
+
+    Route::patch('/update-token' , [\App\Http\Controllers\Api\UpdateFCMTokenController::class , 'updateToken'])->name('fcmToken');
+    Route::post('/send-notification-now',[\App\Http\Controllers\Api\SendNotification::class,'notification'])->name('notification-now');
+
+
     //end api route
 });

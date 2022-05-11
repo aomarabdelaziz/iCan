@@ -7,6 +7,7 @@ use App\Traits\ApiResponser;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
@@ -109,6 +110,38 @@ class AuthController extends Controller
         return [
             'message' => 'User Logged out'
         ];
+    }
+
+    public function changePassword(Request $request)
+    {
+        if(auth('sanctum')->check())
+        {
+            $validator =  Validator::make($request->all(),[
+                'password' => ['required'],
+                'new_password' => [ 'required', Password::min(8)->letters()->mixedCase()->numbers() , 'confirmed' ],
+            ]);
+
+            if($validator->fails()){
+                return $this->error('Validation Error' , 401 ,$validator->errors());
+            }
+
+            $validated = $validator->validated();
+
+            if (!Hash::check($validated['password'], auth()->user()->password))
+            {
+                return $this->error('Validation Error' , 401 ,"Password don't match");
+
+            }
+
+            auth()->user()->fill([
+                'password' => Hash::make($validated['new_password'])
+            ])->save();
+
+            return $this->success("Password Changed");
+
+
+        }
+
     }
 
 }

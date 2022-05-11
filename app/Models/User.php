@@ -31,6 +31,7 @@ class User extends Authenticatable
         'national_id',
         'license_id',
         'volunteer_type',
+        'fcm_token'
     ];
 
     /**
