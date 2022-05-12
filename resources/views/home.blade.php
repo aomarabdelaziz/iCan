@@ -14,7 +14,7 @@
                         </div>
                     @endif
 
-                        <form action="{{ route('notification') }}" method="post">
+                        <form action="{{ route('notification-now') }}" method="post">
                             @csrf
                             <input type="text" name="title">
                             <input type="text" name="message">

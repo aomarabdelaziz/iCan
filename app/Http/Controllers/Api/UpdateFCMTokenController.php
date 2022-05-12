@@ -10,6 +10,7 @@ class UpdateFCMTokenController extends Controller
 {
 
     use ApiResponser;
+
     public function updateToken(Request $request)
     {
         try{

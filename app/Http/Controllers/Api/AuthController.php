@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Password;
+use Laravel\Sanctum\PersonalAccessToken;
 
 
 class AuthController extends Controller
@@ -142,6 +143,19 @@ class AuthController extends Controller
 
         }
 
+    }
+
+
+    public function getUserDataByToken(Request $request)
+    {
+
+
+        $personalAccessToken = PersonalAccessToken::findToken($request->plainTextToken);
+
+        $user = $personalAccessToken->tokenable;
+
+        return $this->success($user);
+        dd($user);
     }
 
 }
