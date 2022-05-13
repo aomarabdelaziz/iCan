@@ -34,7 +34,7 @@ trait ApiResponser
             'status_code' => '401',
             'message' => $message,
             'data' => $data
-        ], $code);
+        ], 200);
     }
 
 }
