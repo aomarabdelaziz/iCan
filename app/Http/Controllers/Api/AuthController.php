@@ -109,9 +109,8 @@ class AuthController extends Controller
     {
         auth()->user()->tokens()->delete();
 
-        return [
-            'message' => 'User Logged out'
-        ];
+        return $this->success("User Logged out");
+
     }
 
     public function changePassword(Request $request)
