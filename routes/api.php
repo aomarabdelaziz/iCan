@@ -21,8 +21,8 @@ Route::group(['middleware' => [ 'validate.access.token' ,'auth:sanctum']], funct
         Route::post('/register', [\App\Http\Controllers\Api\AuthController::class, 'register'])
         ->withoutMiddleware('auth:sanctum');
 
-        Route::post('/login', [\App\Http\Controllers\Api\AuthController::class, 'login']);
-
+        Route::post('/login', [\App\Http\Controllers\Api\AuthController::class, 'login'])
+        ->withoutMiddleware('auth:sanctum');
 
         Route::post('/logout', [\App\Http\Controllers\Api\AuthController::class , 'logout']);
         Route::get('/get-user-data-by-token', [\App\Http\Controllers\Api\AuthController::class , 'getUserDataByToken']);
