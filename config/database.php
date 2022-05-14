@@ -64,7 +64,7 @@ return [
             ]) : [],
         ],
 
-        'pgsql1' => [
+        'pgsql' => [
             'driver' => 'pgsql',
             'url' => env('DATABASE_URL'),
             'host' => $DATABASE_URL['host'],
