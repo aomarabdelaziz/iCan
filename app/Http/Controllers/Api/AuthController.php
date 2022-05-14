@@ -19,7 +19,6 @@ class AuthController extends Controller
 {
     use ApiResponser;
 
-
     public function register(Request $request)
     {
         $validator =  Validator::make($request->all(),[

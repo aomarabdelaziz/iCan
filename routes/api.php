@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::group(['middleware' => [ 'validate.access.token' ,'auth:sanctum']], function () {
+Route::group(['middleware' => [ 'auth:sanctum']], function () {
 
     Route::group(['prefix' => 'auth'] , function (){
         Route::post('/register', [\App\Http\Controllers\Api\AuthController::class, 'register'])
