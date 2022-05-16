@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Models\User;
 use App\Traits\ApiResponser;
+use Couchbase\Role;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -30,7 +31,7 @@ class AuthController extends Controller
             'phone' => ['required' , 'regex:^01[0-2,5]\d{8}$^'],
             'national_id' => ['sometimes' , 'image' , 'mimes:jpg,png'],
             'license_id' => ['sometimes' , 'image' , 'mimes:jpg,png'],
-            'role' => ['required' , 'string'],
+            'role' => ['required' , 'string' , Rule::in(['user','admin' ,'volunteer' , 'center' , 'store'])],
             'volunteer_type' => ['sometimes' , 'string' , Rule::in(['sitter' , 'driver'])],
         ]);
 

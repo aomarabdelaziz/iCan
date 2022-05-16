@@ -20,6 +20,8 @@ return new class extends Migration
             $table->string('address',150);
             $table->string('email')->unique();
             $table->enum('status' , ['pending' ,'accepted' , 'rejected'])->default('pending');
+            $table->string('image',150)->nullable();
+
         });
     }
 

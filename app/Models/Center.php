@@ -18,6 +18,8 @@ class Center extends Model
         'email',
         'status',
         'rating',
+        'about',
+        'image',
     ];
 
     public static function updateCenterStatus (array $validated)
@@ -29,13 +31,15 @@ class Center extends Model
         return $status;
     }
 
-    public static function addNewCenter (array $validated)
+    public static function addNewCenter (array $validated , string $center_path)
     {
         static::create(
             [
                 'user_id' => Auth::id(),
                 'name' => $validated['name'],
                 'email' => $validated['email'],
+                'about' => $validated['about'],
+                'image' => $center_path,
             ]);
     }
 

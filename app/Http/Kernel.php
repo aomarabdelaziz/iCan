@@ -2,6 +2,7 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\CheckAuthenticatedCenterRole;
 use App\Http\Middleware\ValidateAccessToken;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
@@ -65,5 +66,6 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'validateAccessToken' => ValidateAccessToken::class,
+        'checkCenterRole' => CheckAuthenticatedCenterRole::class,
     ];
 }

@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('last_name',50);
             $table->string('email')->unique();
             $table->string('password');
-            $table->enum('role' , ['user' , 'admin' , 'volunteer']);
+            $table->enum('role' , ['user' , 'admin' , 'volunteer' ,'center' , 'store']);
             $table->string('phone',20);
             $table->string('national_id',150)->nullable();
             $table->string('license_id',150)->nullable();

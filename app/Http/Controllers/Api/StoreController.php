@@ -21,14 +21,18 @@ class StoreController extends Controller
             'name' => ['required' , 'string', 'max:255'],
             'address' => ['required' , 'string' , 'max:255'],
             'email' => ['required' , 'string' , 'email:filter,rfc,dns' , Rule::unique('stores' , 'email')],
+            'store_image' => ['required' , 'image' , 'mimes:jpg,png'],
+
         ]);
 
         if($validator->fails()){
             return $this->error('Validation Error' , 401 ,$validator->errors());
         }
 
+        $store_path = Storage::disk('public')->put('images' , $request->file('store_image'));
 
-        Store::createStore($validator->validated());
+
+        Store::createStore($validator->validated() , $store_path);
 
         return $this->success('Store created successfully');
     }

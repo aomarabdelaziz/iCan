@@ -35,16 +35,11 @@ Route::group(['middleware' => [ 'auth:sanctum']], function () {
     });
 
     Route::post('/store-create' , \App\Http\Controllers\Api\StoreController::class );
-    Route::post('/center-create' , \App\Http\Controllers\Api\CenterController::class );
     Route::post('/send-volunteer-request' , \App\Http\Controllers\Api\UserVolunteerRequestController::class);
     Route::post('/volunteer-change-status-request' , \App\Http\Controllers\Api\VolunteerAcceptRequestController::class);
     Route::get('/get-volunteers' , \App\Http\Controllers\Api\FetchVolunteersController::class );
     Route::post('/add-phone-number' , \App\Http\Controllers\Api\CenterStorePhoneController::class );
-    Route::post('/approve-center' , \App\Http\Controllers\Api\ApproveCenter::class );
     Route::post('/approve-store' , \App\Http\Controllers\Api\ApproveStore::class );
-    Route::post('/center-evaluation' , \App\Http\Controllers\Api\CenterEvaluationController::class );
-    Route::get('/get-centers' , \App\Http\Controllers\Api\GetCentersController::class );
-    Route::post('/center-booking' , \App\Http\Controllers\Api\CenterBookingController::class);
     Route::post('/add-store-product' , \App\Http\Controllers\Api\AddStoreProductController::class);
     Route::post('/create-admin' , \App\Http\Controllers\Api\CreateAdminController::class);
     Route::post('/end-volunteering' , \App\Http\Controllers\Api\VolunteerEndVolunteering::class);
@@ -60,6 +55,15 @@ Route::group(['middleware' => [ 'auth:sanctum']], function () {
     Route::patch('/update-token' , [\App\Http\Controllers\Api\UpdateFCMTokenController::class , 'updateToken'])->name('fcmToken');
     Route::post('/send-notification',[\App\Http\Controllers\Api\SendNotification::class,'notification'])->name('notification');
 
+    Route::group(['prefix' => 'center' , 'middleware' => 'checkCenterRole'] , function (){
+        Route::get('/get-centers' , \App\Http\Controllers\Api\GetCentersController::class )->withoutMiddleware('checkCenterRole');
+        Route::post('/center-booking' , \App\Http\Controllers\Api\CenterBookingController::class)->withoutMiddleware('checkCenterRole');
+        Route::post('/approve-center' , \App\Http\Controllers\Api\ApproveCenter::class )->withoutMiddleware('checkCenterRole');
+        Route::post('/center-evaluation' , \App\Http\Controllers\Api\CenterEvaluationController::class )->withoutMiddleware('checkCenterRole');
+        Route::post('/create-center' , \App\Http\Controllers\Api\CenterController::class );
+        Route::get('/get-user-centers' , \App\Http\Controllers\Api\GetUserCenters::class );
+
+    });
 
 
 

@@ -18,6 +18,7 @@ class Store extends Model
         'address',
         'email',
         'status',
+        'image',
     ];
 
     public static function updateStoreStatus (array $validated)
@@ -29,7 +30,7 @@ class Store extends Model
         return $status;
     }
 
-    public static function createStore(array $validated)
+    public static function createStore(array $validated , string $store_path)
     {
         static::create(
             [
@@ -37,6 +38,7 @@ class Store extends Model
                 'user_id' => Auth::id(),
                 'address' => $validated['address'],
                 'email' => $validated['email'],
+                'image' => $store_path,
             ]);
     }
 
