@@ -7,6 +7,7 @@ use App\Models\Center;
 use App\Models\Evaluation;
 use App\Traits\ApiResponser;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class GetCentersController extends Controller
 {
@@ -14,7 +15,7 @@ class GetCentersController extends Controller
 
     public function __invoke(Request $request)
     {
-        $centers = Center::where('status' , '!=' , 'pending')->orWhere('status' , '!=' , 'rejected')->get();
+        $centers = Center::where('status' , '=' , 'accepted')->get();
         return $this->success($centers);
     }
 
