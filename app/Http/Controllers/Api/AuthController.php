@@ -76,9 +76,7 @@ class AuthController extends Controller
             'volunteer_type' => $validated['volunteer_type'] ?? 'null',
         ]);
 
-        return $this->success([
-            'token' => $user->createToken('API Token')->plainTextToken
-        ]);
+        return $this->success('Account Created Successfully');
     }
 
     public function login(Request $request)
