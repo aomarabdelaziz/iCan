@@ -21,7 +21,7 @@ class CenterController extends Controller
         $validator =  Validator::make($request->all(),[
 
             'name' => ['required' , 'string' , 'max:255'],
-            'email' => ['required' , 'string' , 'email:filter,rfc,dns' , Rule::unique('centers' , 'email')],
+/*            'email' => ['required' , 'string' , 'email:filter,rfc,dns' , Rule::unique('centers' , 'email')],*/
             'about' => ['required' , 'string' , 'max:255'],
             'center_image' => ['required' , 'image' , 'mimes:jpg,png'],
         ]);

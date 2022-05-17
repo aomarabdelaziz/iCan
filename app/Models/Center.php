@@ -47,7 +47,7 @@ class Center extends Model
             [
                 'user_id' => Auth::id(),
                 'name' => $validated['name'],
-                'email' => $validated['email'],
+                'email' => Auth::user()->email,
                 'about' => $validated['about'],
                 'image' => $center_path,
             ]);
