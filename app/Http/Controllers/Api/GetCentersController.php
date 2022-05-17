@@ -15,7 +15,14 @@ class GetCentersController extends Controller
 
     public function __invoke(Request $request)
     {
-        $centers = Center::where('status' , '=' , 'accepted')->get();
+        $query = Center::query();
+        
+        $centers = $query->when(auth()->user()->role == 'user' , function ($query) {
+            return $query->where('status' , '=' , 'accepted');
+        })->when(auth()->user()->role == 'admin' , function ($query) {
+            return $query;
+        })->get();
+
         return $this->success($centers);
     }
 
