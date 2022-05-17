@@ -29,10 +29,12 @@ class StoreController extends Controller
             return $this->error('Validation Error' , 401 ,$validator->errors());
         }
 
-        $store_path = Storage::disk('public')->put('images' , $request->file('store_image'));
+        if($request->hasFile('store_image')){
+            $store_path = Storage::disk('public')->put('images' , $request->file('store_image'));
 
+        }
 
-        Store::createStore($validator->validated() , $store_path);
+        Store::createStore($validator->validated() , $store_path ?? '');
 
         return $this->success('Store created successfully');
     }

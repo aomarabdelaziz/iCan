@@ -30,9 +30,11 @@ class CenterController extends Controller
             return $this->error('Validation Error' , 401 ,$validator->errors());
         }
 
-        $center_path = Storage::disk('public')->put('images' , $request->file('center_image'));
+       if($request->hasFile('center_image')){
+           $center_path = Storage::disk('public')->put('images' , $request->file('center_image'));
+       }
 
-        Center::addNewCenter($validator->validated() , $center_path);
+        Center::addNewCenter($validator->validated() , $center_path ?? '');
 
         return $this->success('Center has been created');
     }
