@@ -22,6 +22,7 @@ class Store extends Model
         'status',
         'image',
     ];
+
     public function image() : Attribute
     {
         return Attribute::make(
@@ -46,7 +47,7 @@ class Store extends Model
                 'name' => $validated['name'],
                 'user_id' => Auth::id(),
                 'address' => $validated['address'],
-                'email' => $validated['email'],
+                'email' => Auth::user()->email,
                 'image' => $store_path,
             ]);
     }
