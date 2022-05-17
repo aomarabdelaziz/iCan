@@ -16,6 +16,10 @@ class CheckAuthenticatedAdminRole
      */
     public function handle(Request $request, Closure $next)
     {
+        $role = $request->user()->role;
+        if($role != 'admin'){
+            return $this->error('Permission is denied' , 401 ,"You don't have the permission to access this page, due to your role");
+        }
         return $next($request);
     }
 }

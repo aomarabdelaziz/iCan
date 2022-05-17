@@ -2,6 +2,7 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\CheckAuthenticatedAdminRole;
 use App\Http\Middleware\CheckAuthenticatedCenterRole;
 use App\Http\Middleware\ValidateAccessToken;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
@@ -67,5 +68,6 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'validateAccessToken' => ValidateAccessToken::class,
         'checkCenterRole' => CheckAuthenticatedCenterRole::class,
+        'checkAdminRole' => CheckAuthenticatedAdminRole::class,
     ];
 }

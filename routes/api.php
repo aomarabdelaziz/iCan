@@ -27,6 +27,8 @@ Route::group(['middleware' => [ 'auth:sanctum']], function () {
 
     });
 
+    Route::get('/get-my-token',  \App\Http\Controllers\Api\GetAuthUserToken::class);
+
     Route::get('/me', function(Request $request) {
         return auth()->user();
     });
