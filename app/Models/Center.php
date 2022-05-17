@@ -2,9 +2,11 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class Center extends Model
 {
@@ -21,6 +23,14 @@ class Center extends Model
         'about',
         'image',
     ];
+
+    public function image() : Attribute
+    {
+        return Attribute::make(
+            get: fn ($value) => asset(Storage::url($value)),
+        );
+    }
+
 
     public static function updateCenterStatus (array $validated)
     {
