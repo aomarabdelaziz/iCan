@@ -21,7 +21,7 @@ class StoreController extends Controller
             'name' => ['required' , 'string', 'max:255'],
             'address' => ['required' , 'string' , 'max:255'],
 /*            'email' => ['required' , 'string' , 'email:filter,rfc,dns' , Rule::unique('stores' , 'email')],*/
-            'store_image' => ['required' , 'image' , 'mimes:jpg,png'],
+            'store_image' => ['sometimes' , 'image' , 'mimes:jpg,png'],
 
         ]);
 

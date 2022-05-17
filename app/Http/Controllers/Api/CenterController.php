@@ -23,7 +23,7 @@ class CenterController extends Controller
             'name' => ['required' , 'string' , 'max:255'],
 /*            'email' => ['required' , 'string' , 'email:filter,rfc,dns' , Rule::unique('centers' , 'email')],*/
             'about' => ['required' , 'string' , 'max:255'],
-            'center_image' => ['required' , 'image' , 'mimes:jpg,png'],
+            'center_image' => ['sometimes' , 'image' , 'mimes:jpg,png'],
         ]);
 
         if($validator->fails()){
