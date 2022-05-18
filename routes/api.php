@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['middleware' => [ 'auth:sanctum']], function () {
 
+    //////////////////////////////////////////// Auth Routes //////////////////////////////////////////////////////////
     Route::group(['prefix' => 'auth' , 'controller' => \App\Http\Controllers\Api\AuthController::class] , function (){
 
         Route::post('/register', 'register')->withoutMiddleware('auth:sanctum');
@@ -26,14 +27,40 @@ Route::group(['middleware' => [ 'auth:sanctum']], function () {
         Route::post('/change-password',  'changePassword');
 
     });
+    //////////////////////////////////////////// Auth Routes //////////////////////////////////////////////////////////
 
-    Route::get('/get-my-token',  \App\Http\Controllers\Api\GetAuthUserToken::class);
+    //////////////////////////////////////////// Center Routes //////////////////////////////////////////////////////////
+    Route::group(['prefix' => 'center' , 'middleware' => 'checkCenterRole'] , function (){
 
-    Route::get('/me', function(Request $request) {
-        return auth()->user();
+        Route::get('/get-centers' , \App\Http\Controllers\Api\GetCentersController::class )->withoutMiddleware('checkCenterRole');
+        Route::post('/center-booking' , \App\Http\Controllers\Api\CenterBookingController::class)->withoutMiddleware('checkCenterRole');
+        Route::post('/approve-center' , \App\Http\Controllers\Api\ApproveCenter::class )->withoutMiddleware('checkCenterRole');
+        Route::post('/center-evaluation' , \App\Http\Controllers\Api\CenterEvaluationController::class )->withoutMiddleware('checkCenterRole');
+        Route::post('/create-center' , \App\Http\Controllers\Api\CenterController::class );
+        Route::get('/get-user-centers' , \App\Http\Controllers\Api\GetUserCenters::class );
+
     });
+    //////////////////////////////////////////// Center Routes //////////////////////////////////////////////////////////
 
-    Route::post('/store-create' , \App\Http\Controllers\Api\StoreController::class );
+    //////////////////////////////////////////// Store Routes //////////////////////////////////////////////////////////
+    Route::group(['prefix' =>'store' , 'middleware' => 'checkStoreRole'] , function (){
+        Route::post('/create-store' , \App\Http\Controllers\Api\StoreController::class );
+    });
+    //////////////////////////////////////////// Store Routes //////////////////////////////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+    Route::get('/get-my-token',  \App\Http\Controllers\Api\GetAuthUserToken::class)->withoutMiddleware('auth:sanctum');
+    Route::get('/me' , fn(Request $request) => $request->user());
+
+
     Route::post('/send-volunteer-request' , \App\Http\Controllers\Api\UserVolunteerRequestController::class);
     Route::post('/volunteer-change-status-request' , \App\Http\Controllers\Api\VolunteerAcceptRequestController::class);
     Route::get('/get-volunteers' , \App\Http\Controllers\Api\FetchVolunteersController::class );
@@ -54,15 +81,7 @@ Route::group(['middleware' => [ 'auth:sanctum']], function () {
     Route::patch('/update-token' , [\App\Http\Controllers\Api\UpdateFCMTokenController::class , 'updateToken'])->name('fcmToken');
     Route::post('/send-notification',[\App\Http\Controllers\Api\SendNotification::class,'notification'])->name('notification');
 
-    Route::group(['prefix' => 'center' , 'middleware' => 'checkCenterRole'] , function (){
-        Route::get('/get-centers' , \App\Http\Controllers\Api\GetCentersController::class )->withoutMiddleware('checkCenterRole');
-        Route::post('/center-booking' , \App\Http\Controllers\Api\CenterBookingController::class)->withoutMiddleware('checkCenterRole');
-        Route::post('/approve-center' , \App\Http\Controllers\Api\ApproveCenter::class )->withoutMiddleware('checkCenterRole');
-        Route::post('/center-evaluation' , \App\Http\Controllers\Api\CenterEvaluationController::class )->withoutMiddleware('checkCenterRole');
-        Route::post('/create-center' , \App\Http\Controllers\Api\CenterController::class );
-        Route::get('/get-user-centers' , \App\Http\Controllers\Api\GetUserCenters::class );
 
-    });
 
 
 
