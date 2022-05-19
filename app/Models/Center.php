@@ -24,9 +24,9 @@ class Center extends Model
         'image',
     ];
 
-    protected $casts = [
+/*    protected $casts = [
        'rating' => 'double'
-    ];
+    ];*/
 
     public function image() : Attribute
     {
