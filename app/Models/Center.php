@@ -24,6 +24,10 @@ class Center extends Model
         'image',
     ];
 
+    protected $casts = [
+       'rating' => 'double'
+    ];
+
     public function image() : Attribute
     {
         return Attribute::make(

@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignId('user_id')->references('id')->on('users');
             $table->string('name',50);
             $table->string('email')->unique();
-            $table->tinyInteger('rating')->default(0);
+            $table->double('rating')->default(0);
             $table->enum('status' , ['pending' ,'accepted' , 'rejected'])->default('pending');
             $table->string('about');
             $table->string('image',150)->nullable();
