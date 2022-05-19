@@ -45,6 +45,7 @@ Route::group(['middleware' => [ 'auth:sanctum']], function () {
     //////////////////////////////////////////// Store Routes //////////////////////////////////////////////////////////
     Route::group(['prefix' =>'store' , 'middleware' => 'checkStoreRole'] , function (){
         Route::post('/create-store' , \App\Http\Controllers\Api\StoreController::class );
+        Route::post('/get-all-stores' , \App\Http\Controllers\Api\GetStoresController::class )->withoutMiddleware('checkStoreRole');
     });
     //////////////////////////////////////////// Store Routes //////////////////////////////////////////////////////////
 
