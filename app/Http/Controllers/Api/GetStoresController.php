@@ -16,7 +16,7 @@ class GetStoresController extends Controller
 
         $query = Store::query();
 
-        $stores = $query->when(auth()->user()->role == 'user' || auth()->user()->role == 'store', function ($query) {
+        $centers = $query->when((auth()->user()->role == 'user') || (auth()->user()->role == 'store'), function ($query) {
             return $query->where('status' , '=' , 'accepted');
         })->when(auth()->user()->role == 'admin' , function ($query) {
             return $query;

@@ -18,7 +18,7 @@ class GetCentersController extends Controller
 
         $query = Center::query();
 
-        $centers = $query->when(auth()->user()->role == 'user' || auth()->user()->role == 'center', function ($query) {
+        $centers = $query->when((auth()->user()->role == 'user') || (auth()->user()->role == 'center'), function ($query) {
             return $query->where('status' , '=' , 'accepted');
         })->when(auth()->user()->role == 'admin' , function ($query) {
             return $query;
