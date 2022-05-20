@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Store;
 use App\Traits\ApiResponser;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class GetStoresController extends Controller
 {
@@ -16,11 +17,14 @@ class GetStoresController extends Controller
 
         $query = Store::query();
 
-        $centers = $query->when((auth()->user()->role == 'user') || (auth()->user()->role == 'store'), function ($query) {
+        $stores = $query->when(auth()->user()->role == 'user' , function ($query) {
             return $query->where('status' , '=' , 'accepted');
+        })->when(auth()->user()->role == 'store' , function ($query) {
+            return $query->whereUserId(Auth::id());
         })->when(auth()->user()->role == 'admin' , function ($query) {
             return $query;
         })->get();
+
 
         return $this->success($stores);
     }

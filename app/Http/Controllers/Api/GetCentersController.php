@@ -7,6 +7,7 @@ use App\Models\Center;
 use App\Models\Evaluation;
 use App\Traits\ApiResponser;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class GetCentersController extends Controller
@@ -18,8 +19,10 @@ class GetCentersController extends Controller
 
         $query = Center::query();
 
-        $centers = $query->when((auth()->user()->role == 'user') || (auth()->user()->role == 'center'), function ($query) {
+        $centers = $query->when(auth()->user()->role == 'user' , function ($query) {
             return $query->where('status' , '=' , 'accepted');
+        })->when(auth()->user()->role == 'center' , function ($query) {
+            return $query->whereUserId(Auth::id());
         })->when(auth()->user()->role == 'admin' , function ($query) {
             return $query;
         })->get();
