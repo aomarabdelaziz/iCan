@@ -22,6 +22,8 @@ class Center extends Model
         'rating',
         'about',
         'image',
+        'phone_number',
+        'address'
     ];
 
 /*    protected $casts = [
@@ -54,6 +56,8 @@ class Center extends Model
                 'email' => Auth::user()->email,
                 'about' => $validated['about'],
                 'image' => $center_path,
+                'phone_number' => $validated['phone_number'],
+                'address' =>$validated['address'],
             ]);
     }
 

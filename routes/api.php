@@ -65,7 +65,7 @@ Route::group(['middleware' => [ 'auth:sanctum']], function () {
     Route::post('/send-volunteer-request' , \App\Http\Controllers\Api\UserVolunteerRequestController::class);
     Route::post('/volunteer-change-status-request' , \App\Http\Controllers\Api\VolunteerAcceptRequestController::class);
     Route::get('/get-volunteers' , \App\Http\Controllers\Api\FetchVolunteersController::class );
-    Route::post('/add-phone-number' , \App\Http\Controllers\Api\CenterStorePhoneController::class );
+   // Route::post('/add-phone-number' , \App\Http\Controllers\Api\CenterStorePhoneController::class );
     Route::post('/approve-store' , \App\Http\Controllers\Api\ApproveStore::class );
     Route::post('/add-store-product' , \App\Http\Controllers\Api\AddStoreProductController::class);
     Route::post('/create-admin' , \App\Http\Controllers\Api\CreateAdminController::class);

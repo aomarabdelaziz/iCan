@@ -20,6 +20,10 @@ class CenterBooking extends Model
 
     ];
 
+    protected $casts = [
+        'booking_date' => 'date'
+    ];
+
     public static function assignNewBooking(array $validated)
     {
         static::create(
@@ -28,6 +32,7 @@ class CenterBooking extends Model
                 'center_id' => $validated['center_id'],
                 'case_name' => $validated['case_name'],
                 'phone' => $validated['phone'],
+                'booking_date' => $validated['booking_date'],
             ]);
     }
 

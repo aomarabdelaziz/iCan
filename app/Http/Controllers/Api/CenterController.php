@@ -20,10 +20,12 @@ class CenterController extends Controller
     {
         $validator =  Validator::make($request->all(),[
 
+            /*'email' => ['required' , 'string' , 'email:filter,rfc,dns' , Rule::unique('centers' , 'email')],*/
             'name' => ['required' , 'string' , 'max:255'],
-/*            'email' => ['required' , 'string' , 'email:filter,rfc,dns' , Rule::unique('centers' , 'email')],*/
             'about' => ['required' , 'string' , 'max:255'],
             'center_image' => ['sometimes' , 'image' , 'mimes:jpg,png'],
+            'phone_number' => ['required' , 'regex:^01[0-2,5]\d{8}$^'],
+            'address' => ['required' , 'string'],
         ]);
 
         if($validator->fails()){

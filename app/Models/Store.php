@@ -21,6 +21,7 @@ class Store extends Model
         'email',
         'status',
         'image',
+        'phone_number'
     ];
 
     public function image() : Attribute
@@ -47,6 +48,7 @@ class Store extends Model
                 'name' => $validated['name'],
                 'user_id' => Auth::id(),
                 'address' => $validated['address'],
+                'phone_number' => $validated['phone_number'],
                 'email' => Auth::user()->email,
                 'image' => $store_path,
             ]);

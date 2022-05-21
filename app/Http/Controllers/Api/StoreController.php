@@ -18,10 +18,12 @@ class StoreController extends Controller
     public function __invoke(Request $request)
     {
         $validator =  Validator::make($request->all(),[
+
+            /* 'email' => ['required' , 'string' , 'email:filter,rfc,dns' , Rule::unique('stores' , 'email')],*/
             'name' => ['required' , 'string', 'max:255'],
             'address' => ['required' , 'string' , 'max:255'],
-/*            'email' => ['required' , 'string' , 'email:filter,rfc,dns' , Rule::unique('stores' , 'email')],*/
             'store_image' => ['sometimes' , 'image' , 'mimes:jpg,png'],
+            'phone_number' => ['required' , 'regex:^01[0-2,5]\d{8}$^'],
 
         ]);
 

@@ -20,6 +20,7 @@ class CenterBookingController extends Controller
             'center_id' => ['required' , Rule::exists('centers' , 'id')],
             'case_name' => ['required' , 'string'],
             'phone' => ['required' , 'regex:^01[0-2,5]\d{8}$^'],
+            'booking_date' => ['required' , 'date_format:Y-m-d'],
         ]);
 
         if($validator->fails()){

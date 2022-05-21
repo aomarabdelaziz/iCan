@@ -13,13 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('phone_numbers', function (Blueprint $table) {
-            $table->id();
-            $table->string('phone',20);
-            $table->unsignedBigInteger('category_id');
-            $table->enum('category' , ['store' , 'center']);
 
+        Schema::table('center_bookings', function (Blueprint $table) {
+            $table->after('phone',function($table){
+                $table->date('booking_date');
+            });
         });
+
     }
 
     /**
@@ -29,6 +29,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('phone_numbers');
+        Schema::table('center_bookings', function (Blueprint $table) {
+            $table->dropColumn('booking_date');
+        });
     }
 };
