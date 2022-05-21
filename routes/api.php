@@ -51,6 +51,20 @@ Route::group(['middleware' => [ 'auth:sanctum']], function () {
 
 
 
+    //////////////////////////////////////////// Product Routes //////////////////////////////////////////////////////////
+    Route::group(['prefix' =>'product' ] , function (){
+
+        Route::get('/get-products' , \App\Http\Controllers\Api\GetStoresController::class);
+        Route::post('/add-store-product' , \App\Http\Controllers\Api\AddStoreProductController::class);
+        Route::post('/product-create' , [\App\Http\Controllers\Api\ProductController::class , 'create']);
+        Route::delete('/product-delete', [\App\Http\Controllers\Api\ProductController::class , 'delete']);
+        Route::put('/product-update', [\App\Http\Controllers\Api\ProductController::class , 'updatePrice']);
+
+    });
+    //////////////////////////////////////////// Product Routes //////////////////////////////////////////////////////////
+
+
+
 
 
 
@@ -67,14 +81,10 @@ Route::group(['middleware' => [ 'auth:sanctum']], function () {
     Route::get('/get-volunteers' , \App\Http\Controllers\Api\FetchVolunteersController::class );
    // Route::post('/add-phone-number' , \App\Http\Controllers\Api\CenterStorePhoneController::class );
     Route::post('/approve-store' , \App\Http\Controllers\Api\ApproveStore::class );
-    Route::post('/add-store-product' , \App\Http\Controllers\Api\AddStoreProductController::class);
     Route::post('/create-admin' , \App\Http\Controllers\Api\CreateAdminController::class);
     Route::post('/end-volunteering' , \App\Http\Controllers\Api\VolunteerEndVolunteering::class);
 
 
-    Route::post('/product-create' , [\App\Http\Controllers\Api\ProductController::class , 'create']);
-    Route::delete('/product-delete', [\App\Http\Controllers\Api\ProductController::class , 'delete']);
-    Route::put('/product-update', [\App\Http\Controllers\Api\ProductController::class , 'updatePrice']);
 
     Route::get('/get-volunteer-trip-data' , \App\Http\Controllers\Api\GetVolunteersTripData::class );
 

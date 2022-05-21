@@ -15,15 +15,23 @@ class GetStoresController extends Controller
     public function __invoke(Request $request)
     {
 
+
         $query = Store::query();
 
-        $stores = $query->when(auth()->user()->role == 'user' , function ($query) {
+
+        $stores = $query->when(auth()->user()->role == 'user'  , fn($query) => $query->whereStatus('accepted'))
+            ->when(auth()->user()->role == 'store' , fn($query)=> $query->whereUserId(Auth::id()))
+            ->when(auth()->user()->role == 'admin' , fn($query)=> $query)
+            ->get();
+
+
+    /*    $stores = $query->when(auth()->user()->role == 'user' , function ($query) {
             return $query->where('status' , '=' , 'accepted');
         })->when(auth()->user()->role == 'store' , function ($query) {
             return $query->whereUserId(Auth::id());
         })->when(auth()->user()->role == 'admin' , function ($query) {
             return $query;
-        })->get();
+        })->get();*/
 
 
         return $this->success($stores);
