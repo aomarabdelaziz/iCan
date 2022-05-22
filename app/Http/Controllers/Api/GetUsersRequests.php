@@ -19,7 +19,7 @@ class GetUsersRequests extends Controller
         $query = UsersVolunteerRequest::query();
 
         $requests = $query->when(auth()->user()->role == 'volunteer' && auth()->user()->volunteer_type == 'sitter'  , fn($query) => $query->whereStatus('pending')->whereVolunteerType('sitter'))
-            ->wwhen(auth()->user()->role == 'volunteer' && auth()->user()->volunteer_type == 'driver'  , fn($query) => $query->whereStatus('pending')->whereVolunteerType('driver'))
+            ->when(auth()->user()->role == 'volunteer' && auth()->user()->volunteer_type == 'driver'  , fn($query) => $query->whereStatus('pending')->whereVolunteerType('driver'))
             ->get();
 
 
