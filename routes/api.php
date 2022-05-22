@@ -77,6 +77,8 @@ Route::group(['middleware' => [ 'auth:sanctum']], function () {
     Route::group(['prefix' =>'volunteer' ] , function (){
 
         Route::get('/get-user-requests' , \App\Http\Controllers\Api\GetUsersRequests::class);
+        Route::post('/accept-user-request' , \App\Http\Controllers\Api\VolunteerAcceptRequestController::class);
+
 
     });
     //////////////////////////////////////////// Volunteer Routes //////////////////////////////////////////////////////////
@@ -103,7 +105,6 @@ Route::group(['middleware' => [ 'auth:sanctum']], function () {
     Route::get('/me' , fn(Request $request) => $request->user());
 
 
-    Route::post('/volunteer-change-status-request' , \App\Http\Controllers\Api\VolunteerAcceptRequestController::class);
     Route::get('/get-volunteers' , \App\Http\Controllers\Api\FetchVolunteersController::class );
    // Route::post('/add-phone-number' , \App\Http\Controllers\Api\CenterStorePhoneController::class );
     Route::post('/approve-store' , \App\Http\Controllers\Api\ApproveStore::class );
