@@ -16,7 +16,7 @@ return new class extends Migration
 
         Schema::table('center_bookings', function (Blueprint $table) {
             $table->after('phone',function($table){
-                $table->date('booking_date');
+                $table->string('booking_date');
             });
         });
 

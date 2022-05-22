@@ -17,12 +17,11 @@ class CenterBooking extends Model
         'center_id',
         'case_name',
         'phone',
+        'booking_date'
 
     ];
 
-    protected $casts = [
-        'booking_date' => 'date'
-    ];
+
 
     public static function assignNewBooking(array $validated)
     {

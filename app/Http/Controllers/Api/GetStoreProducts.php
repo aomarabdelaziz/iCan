@@ -24,6 +24,7 @@ class GetStoreProducts extends Controller
         }
 
 
+
        $query = Product::query();
 
        $products = $query->when( $request->filled('store_id'), function ($query) use ($request) {

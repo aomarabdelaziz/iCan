@@ -54,7 +54,7 @@ Route::group(['middleware' => [ 'auth:sanctum']], function () {
     //////////////////////////////////////////// Product Routes //////////////////////////////////////////////////////////
     Route::group(['prefix' =>'product' ] , function (){
 
-        Route::get('/get-products' , \App\Http\Controllers\Api\GetStoresController::class);
+        Route::get('/get-products' , \App\Http\Controllers\Api\GetStoreProducts::class);
         Route::post('/add-store-product' , \App\Http\Controllers\Api\AddStoreProductController::class);
         Route::post('/product-create' , [\App\Http\Controllers\Api\ProductController::class , 'create']);
         Route::delete('/product-delete', [\App\Http\Controllers\Api\ProductController::class , 'delete']);
