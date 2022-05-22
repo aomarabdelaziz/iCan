@@ -13,18 +13,30 @@ class UsersVolunteerRequest extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'volunteer_id',
         'user_id',
+        'volunteer_type',
+        'user_name',
+        'user_phone',
+        'from',
+        'to',
+        'date',
         'status',
 
     ];
 
     public static function createRequest(array $validated)
     {
+        $userName = Auth::user()->first_name . ' ' . Auth::user()->last_name;
         static::create(
             [
-                'volunteer_id' => $validated['volunteer_id'],
                 'user_id' => Auth::id(),
+                'volunteer_type' => $validated['volunteer_type'],
+                'user_name' =>$userName,
+                'user_phone' =>Auth::user()->phone,
+                'from' =>  $validated['from'] ?? '',
+                'to' =>  $validated['to'] ?? '',
+                'date' =>  $validated['date'] ,
+
 
             ]);
     }

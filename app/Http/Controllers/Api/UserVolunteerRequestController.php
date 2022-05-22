@@ -18,7 +18,10 @@ class UserVolunteerRequestController extends Controller
     public function __invoke(Request $request)
     {
         $validator =  Validator::make($request->all(),[
-            'volunteer_id' => ['required' , Rule::exists('users' , 'id')],
+            'volunteer_type' => ['required' , Rule::in(['sitter' , 'driver'])],
+            'from' => ['sometimes' , 'string'],
+            'to' => ['sometimes' , 'string'],
+            'date' => ['required' , 'string'],
         ]);
 
         if($validator->fails()){
@@ -26,15 +29,7 @@ class UserVolunteerRequestController extends Controller
         }
 
 
-        $validated = $validator->validated();
-
-        $volunteer_type = User::firstWhere('id' ,$validated['volunteer_id'])->role;
-        if(!$volunteer_type == 'volunteer'){
-            return $this->error('Validation Error' , 401 ,'this person is not a volunteer user');
-
-        }
-
-        UsersVolunteerRequest::createRequest($validated);
+        UsersVolunteerRequest::createRequest($validator->validated());
 
         return $this->success('Volunteer request has been sent successfully');
 

@@ -64,6 +64,16 @@ Route::group(['middleware' => [ 'auth:sanctum']], function () {
     //////////////////////////////////////////// Product Routes //////////////////////////////////////////////////////////
 
 
+    //////////////////////////////////////////// Product Routes //////////////////////////////////////////////////////////
+    Route::group(['prefix' =>'volunteer' ] , function (){
+
+        Route::post('/user-send-request' , \App\Http\Controllers\Api\UserVolunteerRequestController::class);
+
+    });
+    //////////////////////////////////////////// Product Routes //////////////////////////////////////////////////////////
+
+
+
 
 
 
@@ -76,7 +86,6 @@ Route::group(['middleware' => [ 'auth:sanctum']], function () {
     Route::get('/me' , fn(Request $request) => $request->user());
 
 
-    Route::post('/send-volunteer-request' , \App\Http\Controllers\Api\UserVolunteerRequestController::class);
     Route::post('/volunteer-change-status-request' , \App\Http\Controllers\Api\VolunteerAcceptRequestController::class);
     Route::get('/get-volunteers' , \App\Http\Controllers\Api\FetchVolunteersController::class );
    // Route::post('/add-phone-number' , \App\Http\Controllers\Api\CenterStorePhoneController::class );
