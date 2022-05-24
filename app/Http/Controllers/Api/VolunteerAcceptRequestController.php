@@ -36,8 +36,9 @@ class VolunteerAcceptRequestController extends Controller
 
 
 
-        $isBusy = Volunteer::where('volunteer_id' , Auth::id())->where( 'end_date' , '=' ,  '' )->first();
-        if($isBusy){
+        $isBusy = Volunteer::where('volunteer_id' , Auth::id())->whereNull('end_date')->first();
+        if(!is_null($isBusy))
+        {
             return $this->error('You are busy' , 401 ,'You cannot accept a volunteer request right now, while you are in another trip');
         }
 

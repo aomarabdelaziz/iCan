@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('from')->nullable();
             $table->string('to')->nullable();
             $table->string('date');
-            $table->enum('status' , ['pending','accepted'])->default('pending');
+            $table->enum('status' , ['pending','accepted' , 'finished'])->default('pending');
         });
     }
 
