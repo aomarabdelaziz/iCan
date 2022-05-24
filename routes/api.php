@@ -106,7 +106,6 @@ Route::group(['middleware' => [ 'auth:sanctum']], function () {
 
 
     Route::get('/get-volunteers' , \App\Http\Controllers\Api\FetchVolunteersController::class );
-   // Route::post('/add-phone-number' , \App\Http\Controllers\Api\CenterStorePhoneController::class );
     Route::post('/approve-store' , \App\Http\Controllers\Api\ApproveStore::class );
     Route::post('/create-admin' , \App\Http\Controllers\Api\CreateAdminController::class);
     Route::post('/end-volunteering' , \App\Http\Controllers\Api\VolunteerEndVolunteering::class);
@@ -115,9 +114,11 @@ Route::group(['middleware' => [ 'auth:sanctum']], function () {
 
     Route::get('/get-volunteer-trip-data' , \App\Http\Controllers\Api\GetVolunteersTripData::class );
 
+    //////////////////////////////////////////// Notification Routes //////////////////////////////////////////////////////////
     Route::post('/send-notification-now',[\App\Http\Controllers\Api\SendNotification::class,'now'])->name('notification-now');
     Route::patch('/update-token' , [\App\Http\Controllers\Api\UpdateFCMTokenController::class , 'updateToken'])->name('fcmToken');
     Route::post('/send-notification',[\App\Http\Controllers\Api\SendNotification::class,'notification'])->name('notification');
+    //////////////////////////////////////////// Notification Routes //////////////////////////////////////////////////////////
 
 
 
