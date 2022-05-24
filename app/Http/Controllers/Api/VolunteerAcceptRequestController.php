@@ -42,7 +42,7 @@ class VolunteerAcceptRequestController extends Controller
         }
 
 
-        $query = UsersVolunteerRequest::firstWhere(['id' => $validated['request_id']])->update(['status' => true]);
+        $query = UsersVolunteerRequest::firstWhere(['id' => $validated['request_id']])->update(['status' => 'accepted']);
 
         Volunteer::create(
             [
