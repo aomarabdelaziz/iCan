@@ -17,7 +17,6 @@ class CheckTheRequestAvailability implements Rule
      */
     public function passes($attribute, $value)
     {
-        return false;
         $status = UsersVolunteerRequest::firstWhere('id' , '=' ,  $value);
 
         if($status == 'accepted'){
