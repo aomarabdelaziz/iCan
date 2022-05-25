@@ -15,12 +15,10 @@ class GetVolunteerTrip extends Controller
     use ApiResponser;
     public function __invoke(Request $request)
     {
-        //$data = Volunteer::where('volunteer_id' , Auth::id())->whereNull('end_date')->first();
-        DB::enableQueryLog();
+
         $data = DB::table('users_volunteer_requests')
             ->join('volunteers' , 'users_volunteer_requests.id' , '=' , 'volunteers.id')
-            ->where("volunteers.volunteer_id", '=' , Auth::id());
-        $total =  DB::getQueryLog();
+            ->where("volunteers.volunteer_id", '=' , Auth::id())->get();
         return $this->success($data);
 
     }
