@@ -34,7 +34,7 @@ class VolunteerEndVolunteering extends Controller
         }
 
         Volunteer::firstWhere('request_id' , $validated['request_id'])->update(['end_date' => Carbon::now()]);
-        UsersVolunteerRequest::firstWhere('request_id' , $validated['request_id'])->update(['status' => 'finished']);
+        UsersVolunteerRequest::firstWhere('id' , $validated['request_id'])->update(['status' => 'finished']);
         return $this->success('Your volunteering is ended successfully');
 
 
