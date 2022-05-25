@@ -8,13 +8,19 @@ use App\Models\Volunteer;
 use App\Traits\ApiResponser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class GetVolunteerTrip extends Controller
 {
     use ApiResponser;
     public function __invoke(Request $request)
     {
-        $data = Volunteer::where('volunteer_id' , Auth::id())->whereNull('end_date')->first();
+        //$data = Volunteer::where('volunteer_id' , Auth::id())->whereNull('end_date')->first();
+        DB::enableQueryLog();
+        $data = DB::table('users_volunteer_requests')
+            ->join('volunteers' , 'users_volunteer_requests.id' , '=' , 'volunteers.id')
+            ->where("volunteers.volunteer_id", '=' , Auth::id());
+        $total =  DB::getQueryLog();
         return $this->success($data);
 
     }

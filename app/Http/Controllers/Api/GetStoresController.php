@@ -18,10 +18,11 @@ class GetStoresController extends Controller
 
         $query = Store::query();
 
+        $state = $request->query('state' ?? 'accepted');
 
-        $stores = $query->when(auth()->user()->role == 'user'  , fn($query) => $query->whereStatus('accepted'))
+        $stores = $query->when(auth()->user()->role == 'user'  , fn($query) => $query->whereStatus($state))
             ->when(auth()->user()->role == 'store' , fn($query)=> $query->whereUserId(Auth::id()))
-            ->when(auth()->user()->role == 'admin' , fn($query)=> $query)
+            ->when(auth()->user()->role == 'admin' , fn($query)=> $query->whereStatus($state))
             ->get();
 
 
