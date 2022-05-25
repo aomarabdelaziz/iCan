@@ -78,6 +78,7 @@ Route::group(['middleware' => [ 'auth:sanctum']], function () {
 
         Route::get('/get-user-requests' , \App\Http\Controllers\Api\GetUsersRequests::class);
         Route::post('/accept-user-request' , \App\Http\Controllers\Api\VolunteerAcceptRequestController::class);
+        Route::get('/get-my-trip' , \App\Http\Controllers\Api\GetVolunteerTrip::class);
 
 
     });
