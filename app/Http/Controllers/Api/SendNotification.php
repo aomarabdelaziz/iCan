@@ -55,7 +55,7 @@ class SendNotification extends Controller
                 ->withBody($request->message)
                 ->sendMessage($fcmTokens);
 
-            return $this->success($data);
+            return $this->success([$data , 'token' => $fcmTokens]);
 
 
         }catch(\Exception $e){
