@@ -15,7 +15,8 @@ class UpdateFCMTokenController extends Controller
     {
         try{
 
-            $request->user()->update(['fcm_token'=>$request->token]);
+
+            $request->user()->update(['fcm_token'=>$request->fcm_token]);
             return response()->json([
                 'success'=>true
             ]);
