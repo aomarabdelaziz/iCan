@@ -8,6 +8,7 @@ use App\Notifications\SendPushNotification;
 use App\Rules\CheckTheRequestAvailability;
 use App\Traits\ApiResponser;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
@@ -40,7 +41,7 @@ class SendNotification extends Controller
         }
 
         try{
-            $fcmTokens = User::whereNotNull('fcm_token')->pluck('fcm_token')->toArray();
+            $fcmTokens = Auth::user()->fcm_token;
 
             //Notification::send(null,new SendPushNotification($request->title,$request->message,$fcmTokens));
 
