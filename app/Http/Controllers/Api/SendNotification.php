@@ -50,11 +50,11 @@ class SendNotification extends Controller
 
             /* or */
 
-            \Kutia\Larafirebase\Facades\Larafirebase::withTitle($request->title)
+            $data = \Kutia\Larafirebase\Facades\Larafirebase::withTitle($request->title)
                 ->withBody($request->message)
                 ->sendMessage($fcmTokens);
 
-            return $this->success('Notification Sent Successfully!!');
+            return $this->success($data);
 
 
         }catch(\Exception $e){
