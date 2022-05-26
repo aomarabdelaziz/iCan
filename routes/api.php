@@ -116,7 +116,7 @@ Route::group(['middleware' => [ 'auth:sanctum']], function () {
     Route::get('/get-volunteer-trip-data' , \App\Http\Controllers\Api\GetVolunteersTripData::class );
 
     //////////////////////////////////////////// Notification Routes //////////////////////////////////////////////////////////
-    Route::post('/send-notification-now',[\App\Http\Controllers\Api\SendNotification::class,'now'])->name('notification-now');
+    Route::post('/send-notification-now',[\App\Http\Controllers\Api\SendNotification::class,'notification'])->name('notification-now');
     Route::patch('/update-token' , [\App\Http\Controllers\Api\UpdateFCMTokenController::class , 'updateToken'])->name('fcmToken');
     Route::post('/send-notification',[\App\Http\Controllers\Api\SendNotification::class,'notification'])->name('notification');
     //////////////////////////////////////////// Notification Routes //////////////////////////////////////////////////////////

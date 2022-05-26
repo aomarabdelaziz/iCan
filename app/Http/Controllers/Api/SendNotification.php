@@ -5,9 +5,12 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Notifications\SendPushNotification;
+use App\Rules\CheckTheRequestAvailability;
 use App\Traits\ApiResponser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Notification;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 use Kutia\Larafirebase\Services\Larafirebase;
 
 class SendNotification extends Controller
@@ -23,10 +26,18 @@ class SendNotification extends Controller
     }
     public function notification(Request $request)
     {
-        $request->validate([
-            'title'=>'required',
-            'message'=>'required'
+
+
+
+
+        $validator =  Validator::make($request->all(),[
+            'title'=> ['required' , 'string'],
+            'title'=> ['required' , 'string'],
         ]);
+
+        if($validator->fails()){
+            return $this->error('Validation error' , 401 ,$validator->errors());
+        }
 
         try{
             $fcmTokens = User::whereNotNull('fcm_token')->pluck('fcm_token')->toArray();
