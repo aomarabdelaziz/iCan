@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Traits\ApiResponser;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UpdateFCMTokenController extends Controller
 {
@@ -18,7 +19,8 @@ class UpdateFCMTokenController extends Controller
 
             $request->user()->update(['fcm_token'=>$request->fcm_token]);
             return response()->json([
-                'success'=>true
+                'success'=>true,
+                'user_fcm_token' => Auth::user()->fcm_token
             ]);
 
         }catch(\Exception $e){
