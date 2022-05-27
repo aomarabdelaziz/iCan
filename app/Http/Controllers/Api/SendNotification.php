@@ -95,7 +95,7 @@ class SendNotification extends Controller
             $response = curl_exec($ch);*/
 
 
-            $response = Http::withHeaders($headers)->asJson($dataString)->post("https://fcm.googleapis.com/fcm/send");
+            $response = Http::withHeaders($headers)->asJson($data)->post("https://fcm.googleapis.com/fcm/send");
 
 
 
