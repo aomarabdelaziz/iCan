@@ -60,6 +60,9 @@ class SendNotification extends Controller
                 'Authorization:key=' . 'AAAAfxhuK5I:APA91bGr0YMZ6aLZ48-oifoY5MQD7YtJ4lq-SlK7r7HEgVoan9Kjy3ITMFP7kGet6XoQIsFSXyTFG4q5BvWageF13yJdKLIiVNONKd_WIsjgamHb6X8PbQ6x8JDMgz8q61qpHjg5fPEj',
                 'Content-Type: application/json' );
 
+
+            $data = Http::
+
             $data= Http::withHeaders(
                 [
                     'Authorization' => 'key=' . 'AAAAfxhuK5I:APA91bGr0YMZ6aLZ48-oifoY5MQD7YtJ4lq-SlK7r7HEgVoan9Kjy3ITMFP7kGet6XoQIsFSXyTFG4q5BvWageF13yJdKLIiVNONKd_WIsjgamHb6X8PbQ6x8JDMgz8q61qpHjg5fPEj',
@@ -71,7 +74,7 @@ class SendNotification extends Controller
                      "title": "Test From Abdelaziz Post man 4"
                  }
                 }')
-                ->post(' https://fcm.googleapis.com/fcm/send')->json();
+                ->post('https://fcm.googleapis.com/fcm/send')->json();
 
             return $this->success(    $data);
 
