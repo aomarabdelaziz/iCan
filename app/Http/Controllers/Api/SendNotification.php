@@ -60,7 +60,7 @@ class SendNotification extends Controller
                 ->sendMessage($fcmTokens);
 
 
-           // return $this->success($data);
+            return $this->success($data);
            // return redirect()->back()
 
 
