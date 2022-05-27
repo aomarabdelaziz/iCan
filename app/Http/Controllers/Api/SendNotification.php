@@ -80,7 +80,7 @@ class SendNotification extends Controller
 
             $url = 'https://fcm.googleapis.com/fcm/send';
 
-            $serverKey = 'server key goes here';
+            $serverKey = 'AAAAfxhuK5I:APA91bGr0YMZ6aLZ48-oifoY5MQD7YtJ4lq-SlK7r7HEgVoan9Kjy3ITMFP7kGet6XoQIsFSXyTFG4q5BvWageF13yJdKLIiVNONKd_WIsjgamHb6X8PbQ6x8JDMgz8q61qpHjg5fPEj';
 
             $data = [
                 "registration_ids" => $fcmTokens,
