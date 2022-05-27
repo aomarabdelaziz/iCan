@@ -84,7 +84,7 @@ class SendNotification extends Controller
                 'Content-Type: application/json',
             ];
 
-           /* $ch = curl_init();
+            $ch = curl_init();
 
             curl_setopt($ch, CURLOPT_URL, 'https://fcm.googleapis.com/fcm/send');
             curl_setopt($ch, CURLOPT_POST, true);
@@ -93,25 +93,19 @@ class SendNotification extends Controller
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($ch, CURLOPT_POSTFIELDS, $dataString);
 
-            $response = curl_exec($ch);*/
-
-/*
-            $response = Http::withHeaders(
-                [
-                    'Authorization: key=' . $SERVER_API_KEY,
-                    'Content-Type: application/json',
-                ]
-            )->asJson($data)->post("https://fcm.googleapis.com/fcm/send");
-*/
-
-
-            $response = Http::withHeaders($headers)->withBody($dataString , 'application/json')->post("https://fcm.googleapis.com/fcm/send");
+            $response = curl_exec($ch);
 
 
 
 
 
-            return $this->success($response->body());
+            //$response = Http::withHeaders($headers)->withBody($dataString , 'application/json')->post("https://fcm.googleapis.com/fcm/send");
+
+
+
+
+
+            return $this->success($response);
            // return redirect()->back()
 
 
