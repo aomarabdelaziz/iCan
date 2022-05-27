@@ -42,7 +42,7 @@ class SendNotification extends Controller
         }
 
         try{
-            $fcmTokens = Auth::user()->fcm_token;
+            $fcmTokens = Auth::user()->fcm_token->toArray();
 
             //Notification::send(null,new SendPushNotification($request->title,$request->message,$fcmTokens));
 
