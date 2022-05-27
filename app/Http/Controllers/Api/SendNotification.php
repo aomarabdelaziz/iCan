@@ -72,11 +72,11 @@ class SendNotification extends Controller
                      "notification" : {
                          "body" : "From Abdelaziz 4",
                          "title": "Test From Abdelaziz Post man 4"
-                     
+
                 }')
                 ->post('https://fcm.googleapis.com/fcm/send');
 
-            return $this->success(    $data);
+            return $this->success(    $response->body());
 
 
         }catch(\Exception $e){
