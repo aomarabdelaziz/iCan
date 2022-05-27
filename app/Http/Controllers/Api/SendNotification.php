@@ -13,7 +13,9 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
-use Kutia\Larafirebase\Services\Larafirebase;
+//use Kutia\Larafirebase\Services\Larafirebase;
+use Kutia\Larafirebase\Facades\Larafirebase;
+
 
 class SendNotification extends Controller
 {
@@ -54,12 +56,14 @@ class SendNotification extends Controller
             //auth()->user()->notify(new SendPushNotification($request->title,$request->message,$fcmTokens));
 
             /* or */
-
+/*
             $data = \Kutia\Larafirebase\Facades\Larafirebase::withTitle($request->title)
                 ->withBody($request->message)
+                ->sendMessage($fcmTokens);*/
+
+            $data =  Larafirebase::withTitle('Test Title')
+                ->withBody('Test body')
                 ->sendMessage($fcmTokens);
-
-
             return $this->success($data);
            // return redirect()->back()
 
