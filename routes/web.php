@@ -21,3 +21,6 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+/*Route::post('/send-notification-now',[\App\Http\Controllers\Api\SendNotification::class,'notification'])->name('notification-now');
+Route::patch('/update-token' , [\App\Http\Controllers\Api\UpdateFCMTokenController::class , 'updateToken'])->name('fcmToken');
+Route::post('/send-notification',[\App\Http\Controllers\Api\SendNotification::class,'notification'])->name('notification');*/

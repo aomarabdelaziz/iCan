@@ -14,10 +14,11 @@ class UpdateFCMTokenController extends Controller
 
     public function updateToken(Request $request)
     {
+
         try{
 
 
-            $request->user()->update(['fcm_token'=>$request->fcm_token]);
+            $request->user()->update(['fcm_token'=>$request->token]);
             return response()->json([
                 'success'=>true,
                 'user_fcm_token' => Auth::user()->fcm_token

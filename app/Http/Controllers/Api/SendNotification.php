@@ -25,6 +25,8 @@ class SendNotification extends Controller
         auth()->user()->notify(new SendPushNotification($request->title,$request->message,$fcmTokens));
 
 
+
+
     }
     public function notification(Request $request)
     {
@@ -58,7 +60,8 @@ class SendNotification extends Controller
                 ->sendMessage($fcmTokens);
 
 
-            return $this->success(    $data);
+           // return $this->success($data);
+           // return redirect()->back()
 
 
         }catch(\Exception $e){
