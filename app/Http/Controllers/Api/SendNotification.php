@@ -9,6 +9,7 @@ use App\Rules\CheckTheRequestAvailability;
 use App\Traits\ApiResponser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
@@ -47,13 +48,31 @@ class SendNotification extends Controller
 
             /* or */
 
-            auth()->user()->notify(new SendPushNotification($request->title,$request->message,$fcmTokens));
+           // auth()->user()->notify(new SendPushNotification($request->title,$request->message,$fcmTokens));
 
             /* or */
 
        /*     $data = \Kutia\Larafirebase\Facades\Larafirebase::withTitle($request->title)
                 ->withBody($request->message)
                 ->sendMessage($fcmTokens);*/
+
+            $key ='key=AAAAfxhuK5I:APA91bGr0YMZ6aLZ48-oifoY5MQD7YtJ4lq-SlK7r7HEgVoan9Kjy3ITMFP7kGet6XoQIsFSXyTFG4q5BvWageF13yJdKLIiVNONKd_WIsjgamHb6X8PbQ6x8JDMgz8q61qpHjg5fPEj';
+            $header = array(
+                'Authorization:key=' . 'AAAAfxhuK5I:APA91bGr0YMZ6aLZ48-oifoY5MQD7YtJ4lq-SlK7r7HEgVoan9Kjy3ITMFP7kGet6XoQIsFSXyTFG4q5BvWageF13yJdKLIiVNONKd_WIsjgamHb6X8PbQ6x8JDMgz8q61qpHjg5fPEj',
+                'Content-Type: application/json' );
+
+            Http::withHeaders(
+                [
+                    'Authorization' => 'key=' . 'AAAAfxhuK5I:APA91bGr0YMZ6aLZ48-oifoY5MQD7YtJ4lq-SlK7r7HEgVoan9Kjy3ITMFP7kGet6XoQIsFSXyTFG4q5BvWageF13yJdKLIiVNONKd_WIsjgamHb6X8PbQ6x8JDMgz8q61qpHjg5fPEj',
+                    'Content-Type: application/json'
+                ])->asJson('{
+                 "to" : "cbFlU1jSSxKAsmd86pcxmp:APA91bEMkAEz3YKTfU8W3a8RXij_FtAwhYkjumcCl4Ws4paSRHe7BMMsxS4PFsJg0EVAKqR36F8stlmnHCrTPChU6-OBGPHIC6gsByViws9_4BNUEcu64mfBixxWP1eMCPFeZQTakAIF",
+                 "notification" : {
+                     "body" : "From Abdelaziz 4",
+                     "title": "Test From Abdelaziz Post man 4"
+                 }
+                }')
+                ->post(' https://fcm.googleapis.com/fcm/send')->json();
 
             return $this->success(    $fcmTokens);
 
