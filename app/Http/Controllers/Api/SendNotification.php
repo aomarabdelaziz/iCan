@@ -42,7 +42,8 @@ class SendNotification extends Controller
         }
 
         try{
-            $fcmTokens = Auth::user()->fcm_token->toArray();
+
+            $fcmTokens = User::query()->->whereId(Auth::id())->whereNotNull('fcm_token')->get()->toArray();
 
             //Notification::send(null,new SendPushNotification($request->title,$request->message,$fcmTokens));
 
@@ -52,12 +53,12 @@ class SendNotification extends Controller
 
             /* or */
 
-            $data = \Kutia\Larafirebase\Facades\Larafirebase::withTitle($request->title)
+       /*     $data = \Kutia\Larafirebase\Facades\Larafirebase::withTitle($request->title)
                 ->withBody($request->message)
-                ->sendMessage($fcmTokens);
+                ->sendMessage($fcmTokens);*/
 
 
-            return $this->success(    $data);
+            return $this->success(    $fcmTokens);
 
 
         }catch(\Exception $e){
