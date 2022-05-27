@@ -62,9 +62,9 @@ class SendNotification extends Controller
 
 
 
-            $data= Http::withHeaders(
+            $response = Http::withHeaders(
                 [
-                    'Authorization' => 'key=' . 'ddAAAAfxhuK5I:APA91bGr0YMZ6aLZ48-oifoY5MQD7YtJ4lq-SlK7r7HEgVoan9Kjy3ITMFP7kGet6XoQIsFSXyTFG4q5BvWageF13yJdKLIiVNONKd_WIsjgamHb6X8PbQ6x8JDMgz8q61qpHjg5fPEj',
+                    'Authorization' => 'key=' . 'AAAAfxhuK5I:APA91bGr0YMZ6aLZ48-oifoY5MQD7YtJ4lq-SlK7r7HEgVoan9Kjy3ITMFP7kGet6XoQIsFSXyTFG4q5BvWageF13yJdKLIiVNONKd_WIsjgamHb6X8PbQ6x8JDMgz8q61qpHjg5fPEj',
                     'Content-Type: application/json'
 
                 ])->asJson('{
@@ -74,9 +74,9 @@ class SendNotification extends Controller
                      "title": "Test From Abdelaziz Post man 4"
                  }
                 }')
-                ->post('https://fcm.googleapis.com/fcm/send')->json();
+                ->post('https://fcm.googleapis.com/fcm/send');
 
-            return $this->success(    $data);
+            return $this->success(    $response->body());
 
 
         }catch(\Exception $e){
