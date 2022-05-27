@@ -43,7 +43,7 @@ class SendNotification extends Controller
 
         try{
 
-            $fcmTokens = User::query()->->whereId(Auth::id())->whereNotNull('fcm_token')->get()->toArray();
+            $fcmTokens = User::query()->whereId(Auth::id())->whereNotNull('fcm_token')->get()->toArray();
 
             //Notification::send(null,new SendPushNotification($request->title,$request->message,$fcmTokens));
 
