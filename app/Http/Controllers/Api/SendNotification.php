@@ -56,12 +56,11 @@ class SendNotification extends Controller
                 ->withBody($request->message)
                 ->sendMessage($fcmTokens);*/
 
-            $key ='key=AAAAfxhuK5I:APA91bGr0YMZ6aLZ48-oifoY5MQD7YtJ4lq-SlK7r7HEgVoan9Kjy3ITMFP7kGet6XoQIsFSXyTFG4q5BvWageF13yJdKLIiVNONKd_WIsjgamHb6X8PbQ6x8JDMgz8q61qpHjg5fPEj';
             $header = array(
                 'Authorization:key=' . 'AAAAfxhuK5I:APA91bGr0YMZ6aLZ48-oifoY5MQD7YtJ4lq-SlK7r7HEgVoan9Kjy3ITMFP7kGet6XoQIsFSXyTFG4q5BvWageF13yJdKLIiVNONKd_WIsjgamHb6X8PbQ6x8JDMgz8q61qpHjg5fPEj',
                 'Content-Type: application/json' );
 
-            Http::withHeaders(
+            $data= Http::withHeaders(
                 [
                     'Authorization' => 'key=' . 'AAAAfxhuK5I:APA91bGr0YMZ6aLZ48-oifoY5MQD7YtJ4lq-SlK7r7HEgVoan9Kjy3ITMFP7kGet6XoQIsFSXyTFG4q5BvWageF13yJdKLIiVNONKd_WIsjgamHb6X8PbQ6x8JDMgz8q61qpHjg5fPEj',
                     'Content-Type: application/json'
@@ -74,7 +73,7 @@ class SendNotification extends Controller
                 }')
                 ->post(' https://fcm.googleapis.com/fcm/send')->json();
 
-            return $this->success(    $fcmTokens);
+            return $this->success(    $data);
 
 
         }catch(\Exception $e){
