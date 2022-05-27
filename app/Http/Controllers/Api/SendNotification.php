@@ -71,7 +71,7 @@ class SendNotification extends Controller
 
 
             $data = [
-                "registration_ids" => [$firebaseToken],
+                "to" => $firebaseToken,
                 "notification" => [
                     "title" => $request->title,
                     "body" => $request->message,
