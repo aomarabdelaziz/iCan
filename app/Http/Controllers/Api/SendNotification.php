@@ -38,7 +38,7 @@ class SendNotification extends Controller
 
         $validator =  Validator::make($request->all(),[
             'title'=> ['required' , 'string'],
-            'title'=> ['required' , 'string'],
+            'body'=> ['required' , 'string'],
         ]);
 
         if($validator->fails()){
@@ -47,7 +47,7 @@ class SendNotification extends Controller
 
         try{
 
-            $fcmTokens = auth()->user()->fcm_token;
+            //$fcmTokens = auth()->user()->fcm_token;
 
             //Notification::send(null,new SendPushNotification($request->title,$request->message,$fcmTokens));
 
@@ -61,10 +61,44 @@ class SendNotification extends Controller
                 ->withBody($request->message)
                 ->sendMessage($fcmTokens);*/
 
-            $data =  Larafirebase::withTitle('Test Title')
+          /*  $data =  Larafirebase::withTitle('Test Title')
                 ->withBody('Test body')
-                ->sendMessage($fcmTokens);
-            return $this->success($data);
+                ->sendMessage($fcmTokens);*/
+
+            $firebaseToken = User::whereNotNull('fcm_token')->pluck('fcm_token')->all();
+
+            $SERVER_API_KEY = 'AAAAfxhuK5I:APA91bGr0YMZ6aLZ48-oifoY5MQD7YtJ4lq-SlK7r7HEgVoan9Kjy3ITMFP7kGet6XoQIsFSXyTFG4q5BvWageF13yJdKLIiVNONKd_WIsjgamHb6X8PbQ6x8JDMgz8q61qpHjg5fPEj';
+
+            $data = [
+                "registration_ids" => $firebaseToken,
+                "notification" => [
+                    "title" => $request->title,
+                    "body" => $request->body,
+                ]
+            ];
+            $dataString = json_encode($data);
+
+            $headers = [
+                'Authorization: key=' . $SERVER_API_KEY,
+                'Content-Type: application/json',
+            ];
+
+            $ch = curl_init();
+
+            curl_setopt($ch, CURLOPT_URL, 'https://fcm.googleapis.com/fcm/send');
+            curl_setopt($ch, CURLOPT_POST, true);
+            curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $dataString);
+
+            $response = curl_exec($ch);
+
+
+
+
+
+            return $this->success($response);
            // return redirect()->back()
 
 
