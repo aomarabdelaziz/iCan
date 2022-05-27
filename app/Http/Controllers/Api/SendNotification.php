@@ -52,31 +52,12 @@ class SendNotification extends Controller
 
             /* or */
 
-       /*     $data = \Kutia\Larafirebase\Facades\Larafirebase::withTitle($request->title)
+            $data = \Kutia\Larafirebase\Facades\Larafirebase::withTitle($request->title)
                 ->withBody($request->message)
-                ->sendMessage($fcmTokens);*/
-
-            $header = array(
-                'Authorization:key=' . 'AAAAfxhuK5I:APA91bGr0YMZ6aLZ48-oifoY5MQD7YtJ4lq-SlK7r7HEgVoan9Kjy3ITMFP7kGet6XoQIsFSXyTFG4q5BvWageF13yJdKLIiVNONKd_WIsjgamHb6X8PbQ6x8JDMgz8q61qpHjg5fPEj',
-                'Content-Type: application/json' );
+                ->sendMessage($fcmTokens);
 
 
-
-            $response = Http::withHeaders(
-                [
-                    'Authorization' => 'key=' . 'AAAAfxhuK5I:APA91bGr0YMZ6aLZ48-oifoY5MQD7YtJ4lq-SlK7r7HEgVoan9Kjy3ITMFP7kGet6XoQIsFSXyTFG4q5BvWageF13yJdKLIiVNONKd_WIsjgamHb6X8PbQ6x8JDMgz8q61qpHjg5fPEj',
-                    'Content-Type: application/json'
-
-                ])->asJson('
-                     "to" : "cbFlU1jSSxKAsmd86pcxmp:APA91bEMkAEz3YKTfU8W3a8RXij_FtAwhYkjumcCl4Ws4paSRHe7BMMsxS4PFsJg0EVAKqR36F8stlmnHCrTPChU6-OBGPHIC6gsByViws9_4BNUEcu64mfBixxWP1eMCPFeZQTakAIF",
-                     "notification" : {
-                         "body" : "From Abdelaziz 4",
-                         "title": "Test From Abdelaziz Post man 4"
-
-                }')
-                ->post('https://fcm.googleapis.com/fcm/send');
-
-            return $this->success(    $response->body());
+            return $this->success(    $data);
 
 
         }catch(\Exception $e){
