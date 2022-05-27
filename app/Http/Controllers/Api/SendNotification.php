@@ -47,15 +47,15 @@ class SendNotification extends Controller
 
             /* or */
 
-            //auth()->user()->notify(new SendPushNotification($title,$message,$fcmTokens));
+            auth()->user()->notify(new SendPushNotification($title,$message,$fcmTokens));
 
             /* or */
 
-            $data = \Kutia\Larafirebase\Facades\Larafirebase::withTitle($request->title)
+       /*     $data = \Kutia\Larafirebase\Facades\Larafirebase::withTitle($request->title)
                 ->withBody($request->message)
-                ->sendMessage($fcmTokens);
+                ->sendMessage($fcmTokens);*/
 
-            return $this->success([$data , 'token' => $fcmTokens]);
+            return $this->success(  'token' => $fcmTokens);
 
 
         }catch(\Exception $e){
