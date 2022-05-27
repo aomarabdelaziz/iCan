@@ -62,62 +62,21 @@ class SendNotification extends Controller
 
 
 
-           /* $response = Http::withHeaders(
+            $response = Http::withHeaders(
                 [
                     'Authorization' => 'key=' . 'AAAAfxhuK5I:APA91bGr0YMZ6aLZ48-oifoY5MQD7YtJ4lq-SlK7r7HEgVoan9Kjy3ITMFP7kGet6XoQIsFSXyTFG4q5BvWageF13yJdKLIiVNONKd_WIsjgamHb6X8PbQ6x8JDMgz8q61qpHjg5fPEj',
                     'Content-Type: application/json'
 
-                ])->asJson('{
-                 "to" : "cbFlU1jSSxKAsmd86pcxmp:APA91bEMkAEz3YKTfU8W3a8RXij_FtAwhYkjumcCl4Ws4paSRHe7BMMsxS4PFsJg0EVAKqR36F8stlmnHCrTPChU6-OBGPHIC6gsByViws9_4BNUEcu64mfBixxWP1eMCPFeZQTakAIF",
-                 "notification" : {
-                     "body" : "From Abdelaziz 4",
-                     "title": "Test From Abdelaziz Post man 4"
-                 }
+                ])->asJson('
+                     "to" : "cbFlU1jSSxKAsmd86pcxmp:APA91bEMkAEz3YKTfU8W3a8RXij_FtAwhYkjumcCl4Ws4paSRHe7BMMsxS4PFsJg0EVAKqR36F8stlmnHCrTPChU6-OBGPHIC6gsByViws9_4BNUEcu64mfBixxWP1eMCPFeZQTakAIF",
+                     "notification" : {
+                         "body" : "From Abdelaziz 4",
+                         "title": "Test From Abdelaziz Post man 4"
+                     
                 }')
-                ->post('https://fcm.googleapis.com/fcm/send');*/
+                ->post('https://fcm.googleapis.com/fcm/send');
 
-
-
-            $url = 'https://fcm.googleapis.com/fcm/send';
-
-            $serverKey = 'AAAAfxhuK5I:APA91bGr0YMZ6aLZ48-oifoY5MQD7YtJ4lq-SlK7r7HEgVoan9Kjy3ITMFP7kGet6XoQIsFSXyTFG4q5BvWageF13yJdKLIiVNONKd_WIsjgamHb6X8PbQ6x8JDMgz8q61qpHjg5fPEj';
-
-            $data = [
-                "registration_ids" => $fcmTokens,
-                "notification" => [
-                    "title" => $request->title,
-                    "body" => $request->body,
-                ]
-            ];
-            $encodedData = json_encode($data);
-
-            $headers = [
-                'Authorization:key=' . $serverKey,
-                'Content-Type: application/json',
-            ];
-
-            $ch = curl_init();
-
-            curl_setopt($ch, CURLOPT_URL, $url);
-            curl_setopt($ch, CURLOPT_POST, true);
-            curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
-            curl_setopt($ch, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_1);
-            // Disabling SSL Certificate support temporarly
-            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, $encodedData);
-            // Execute post
-            $result = curl_exec($ch);
-            if ($result === FALSE) {
-                die('Curl failed: ' . curl_error($ch));
-            }
-            // Close connection
-            curl_close($ch);
-            // FCM response
-
-
-            return $this->success(   $result);
+            return $this->success(    $data);
 
 
         }catch(\Exception $e){
