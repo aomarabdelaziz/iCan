@@ -61,7 +61,6 @@ class SendNotification extends Controller
                 'Content-Type: application/json' );
 
 
-            $data = Http::
 
             $data= Http::withHeaders(
                 [
