@@ -38,7 +38,7 @@ class SendNotification extends Controller
 
         $validator =  Validator::make($request->all(),[
             'title'=> ['required' , 'string'],
-            'body'=> ['required' , 'string'],
+            'message'=> ['required' , 'string'],
         ]);
 
         if($validator->fails()){
@@ -73,7 +73,7 @@ class SendNotification extends Controller
                 "registration_ids" => $firebaseToken,
                 "notification" => [
                     "title" => $request->title,
-                    "body" => $request->body,
+                    "body" => $request->message,
                 ]
             ];
             $dataString = json_encode($data);
