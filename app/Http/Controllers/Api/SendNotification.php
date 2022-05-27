@@ -69,7 +69,6 @@ class SendNotification extends Controller
 
             $firebaseToken = auth()->user()->fcm_token;
 
-            $SERVER_API_KEY = 'AAAAfxhuK5I:APA91bGr0YMZ6aLZ48-oifoY5MQD7YtJ4lq-SlK7r7HEgVoan9Kjy3ITMFP7kGet6XoQIsFSXyTFG4q5BvWageF13yJdKLIiVNONKd_WIsjgamHb6X8PbQ6x8JDMgz8q61qpHjg5fPEj';
 
             $data = [
                 "registration_ids" => [$firebaseToken],
@@ -81,11 +80,11 @@ class SendNotification extends Controller
             $dataString = json_encode($data);
 
             $headers = [
-                'Authorization: key=' . $SERVER_API_KEY,
+                'Authorization: key=' . env('FIREBASE_SERVER_KEY'),
                 'Content-Type: application/json',
             ];
 
-            $ch = curl_init();
+           /* $ch = curl_init();
 
             curl_setopt($ch, CURLOPT_URL, 'https://fcm.googleapis.com/fcm/send');
             curl_setopt($ch, CURLOPT_POST, true);
@@ -94,7 +93,7 @@ class SendNotification extends Controller
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($ch, CURLOPT_POSTFIELDS, $dataString);
 
-            $response = curl_exec($ch);
+            $response = curl_exec($ch);*/
 
 /*
             $response = Http::withHeaders(
@@ -106,11 +105,13 @@ class SendNotification extends Controller
 */
 
 
+            $response = Http::withHeaders($headers)->withBody($dataString)->post("https://fcm.googleapis.com/fcm/send");
 
 
 
 
-            return $this->success($response);
+
+            return $this->success($response->body());
            // return redirect()->back()
 
 
