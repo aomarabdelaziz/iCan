@@ -47,7 +47,7 @@ class SendNotification extends Controller
 
             /* or */
 
-            auth()->user()->notify(new SendPushNotification($title,$message,$fcmTokens));
+            auth()->user()->notify(new SendPushNotification($request->title,$request->message,$fcmTokens));
 
             /* or */
 
