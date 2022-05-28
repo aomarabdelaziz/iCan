@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Center;
 use App\Models\CenterBooking;
+use App\Models\User;
+use App\Notifications\SendPushNotification;
 use App\Traits\ApiResponser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -30,6 +33,12 @@ class CenterBookingController extends Controller
 
         CenterBooking::assignNewBooking($validator->validated());
 
+        $ownerId = Center::firstWhere('id' , $request->center_id)->user_id;
+        $centerOwner = User::firstWhere('id' , $ownerId);
+        $centerOwner->notify(new SendPushNotification("Booking","New Booking",$centerOwner->fcm_token));
+        
         return $this->success("Booking has been submitted");
     }
+
+
 }
