@@ -68,6 +68,9 @@ class SendPushNotification extends Notification
     public function toFirebase($notifiable)
     {
 
+
+
+
         $data = [
             "to" => $this->fcmTokens,
             "notification" => [
@@ -91,7 +94,7 @@ class SendPushNotification extends Notification
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $dataString);
 
-
+        return curl_exec($ch);
 
 
 

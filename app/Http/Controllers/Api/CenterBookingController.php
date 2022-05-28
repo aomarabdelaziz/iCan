@@ -33,10 +33,11 @@ class CenterBookingController extends Controller
 
         CenterBooking::assignNewBooking($validator->validated());
 
-        $ownerId = Center::firstWhere('id' , $request->center_id)->user_id;
-        $centerOwner = User::firstWhere('id' , $ownerId);
-        $centerOwner->notify(new SendPushNotification("Booking","New Booking",$centerOwner->fcm_token));
-        
+         $ownerId = Center::firstWhere('id' , $request->center_id)->user_id;
+         $centerOwner = User::firstWhere('id' , $ownerId);
+         $userName = Auth::user()->first_name . ' ' . Auth::user()->last_name;
+         $centerOwner->notify(new SendPushNotification("Center Booking","$userName has booked ",$centerOwner->fcm_token));
+
         return $this->success("Booking has been submitted");
     }
 
