@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\UsersVolunteerRequest;
 use App\Models\Volunteer;
+use App\Notifications\SendPushNotification;
 use App\Rules\CheckTheRequestAvailability;
 use App\Traits\ApiResponser;
 use Carbon\Carbon;
@@ -43,7 +44,13 @@ class VolunteerAcceptRequestController extends Controller
         }
 
 
-        $query = UsersVolunteerRequest::firstWhere(['id' => $validated['request_id']])->update(['status' => 'accepted']);
+        $query = UsersVolunteerRequest::firstWhere(['id' => $validated['request_id']]);
+        $userId = $query->user_id;
+        $query->update(['status' => 'accepted']);
+
+        $user = User::findOrFail($userId);
+        $userName = Auth::user()->first_name . ' ' . Auth::user()->last_name;
+        $user->notify(new SendPushNotification("Volunteer Request","$userName has been accepted your volunteering request" ,$user->fcm_token));
 
         Volunteer::create(
             [
@@ -52,6 +59,8 @@ class VolunteerAcceptRequestController extends Controller
                 'start_date' => Carbon::now(),
                 'comment' => ''
             ]);
+
+
 
         return $this->success('Volunteer request has accepted successfully');
 

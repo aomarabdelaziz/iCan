@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Center;
 use App\Models\Store;
+use App\Models\User;
+use App\Notifications\SendPushNotification;
 use App\Traits\ApiResponser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -24,6 +27,8 @@ class ApproveStore extends Controller
         }
 
         $status = Store::updateStoreStatus($validator->validated());
+        $storeOwner = User::findOrFail(Store::firstWhere('id' , $request->store_id)->id);
+        $storeOwner->notify(new SendPushNotification("Store Approval Request","Admin has $status your store request" ,$storeOwner->fcm_token));
 
         return $this->success("Store has been $status");
 
