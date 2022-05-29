@@ -35,7 +35,7 @@ class SendPushNotification extends Notification
      */
     public function via($notifiable)
     {
-        return ['firebase'];
+        return ['firebase' , 'database'];
     }
 
     /**
@@ -62,6 +62,22 @@ class SendPushNotification extends Notification
     {
         return [
             //
+        ];
+    }
+
+    /**
+     * Get the array representation of the notification.
+     *
+     * @param  mixed  $notifiable
+     * @return array
+     */
+    public function toDatabase($notifiable)
+    {
+        return [
+
+            'title' => $this->title,
+            'content' => $this->message
+
         ];
     }
 

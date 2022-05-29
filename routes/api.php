@@ -119,6 +119,7 @@ Route::group(['middleware' => [ 'auth:sanctum']], function () {
     Route::post('/send-notification-now',[\App\Http\Controllers\Api\SendNotification::class,'notification'])->name('notification-now');
     Route::patch('/update-token' , [\App\Http\Controllers\Api\UpdateFCMTokenController::class , 'updateToken'])->name('fcmToken');
     Route::post('/send-notification',[\App\Http\Controllers\Api\SendNotification::class,'notification'])->name('notification');
+    Route::get('/get-user-notifications',\App\Http\Controllers\Api\GetUserNotifications::class)->name('user-notifications');
     //////////////////////////////////////////// Notification Routes //////////////////////////////////////////////////////////
 
 
