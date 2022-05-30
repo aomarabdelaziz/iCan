@@ -36,7 +36,7 @@ class CenterBookingController extends Controller
          $ownerId = Center::firstWhere('id' , $request->center_id)->user_id;
          $centerOwner = User::firstWhere('id' , $ownerId);
          $userName = Auth::user()->first_name . ' ' . Auth::user()->last_name;
-         $centerOwner->notify(new SendPushNotification("Center Booking","$userName has booked \n Phone: $request->phone \n Case Name: $request->case_name \n Date: $request->booking_date ",$centerOwner->fcm_token));
+         $centerOwner->notify(new SendPushNotification("Center Booking","$userName has booked\nPhone: $request->phone\nCase Name: $request->case_name\nDate: $request->booking_date ",$centerOwner->fcm_token));
 
         return $this->success("Booking has been submitted");
     }
