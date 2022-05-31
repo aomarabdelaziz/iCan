@@ -3,7 +3,8 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-
+use Illuminate\Support\Facades\Notification;
+use App\Channels\FirebaseById;
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -13,6 +14,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
+
         //
     }
 
@@ -23,6 +25,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+
+
+        Notification::extend('firebaseById', function ($app) {
+
+            return new FirebaseById();
+        });
+
     }
 }

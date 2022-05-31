@@ -5,12 +5,15 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Center;
 use App\Models\Store;
+use App\Models\User;
+use App\Notifications\SendPushNotification;
 use App\Traits\ApiResponser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Notification;
 
 class CenterController extends Controller
 {
@@ -37,6 +40,10 @@ class CenterController extends Controller
        }
 
         Center::addNewCenter($validator->validated() , $center_path ?? '');
+
+        $allAdmins = User::whereRole('admin')->get();
+        $userName = Auth::user()->first_name . ' ' . Auth::user()->last_name;
+        Notification::send($allAdmins, new SendPushNotification("Creating New Center","$userName Asking for Center Approval",$allAdmins->pluck('fcm_token')->toArray()));
 
         return $this->success('Center has been created');
     }

@@ -27,7 +27,7 @@ class ApproveStore extends Controller
         }
 
         $status = Store::updateStoreStatus($validator->validated());
-        $storeOwner = User::findOrFail(Store::firstWhere('id' , $request->store_id)->id);
+        $storeOwner = User::findOrFail(Store::firstWhere('id' , $request->store_id)->user_id);
         $storeOwner->notify(new SendPushNotification("Store Approval Request","Admin has $status your store request" ,$storeOwner->fcm_token));
 
         return $this->success("Store has been $status");

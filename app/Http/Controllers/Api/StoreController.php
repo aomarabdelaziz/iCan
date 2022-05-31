@@ -4,9 +4,12 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Store;
+use App\Models\User;
+use App\Notifications\SendPushNotification;
 use App\Traits\ApiResponser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
@@ -37,6 +40,10 @@ class StoreController extends Controller
         }
 
         Store::createStore($validator->validated() , $store_path ?? '');
+
+        $allAdmins = User::whereRole('admin')->get();
+        $userName = Auth::user()->first_name . ' ' . Auth::user()->last_name;
+        Notification::send($allAdmins, new SendPushNotification("Creating New Store","$userName Asking for Store Approval",$allAdmins->pluck('fcm_token')->toArray()));
 
         return $this->success('Store created successfully');
     }

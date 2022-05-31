@@ -2,6 +2,7 @@
 
 namespace App\Notifications;
 
+use App\Channels\FirebaseById;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -35,7 +36,12 @@ class SendPushNotification extends Notification
      */
     public function via($notifiable)
     {
-        return ['firebase' , 'database'];
+        if(is_array($this->fcmTokens)){
+            return ['firebase' , 'database'];
+
+        }
+
+        return [ 'firebaseById' , 'database'];
     }
 
     /**
@@ -88,7 +94,41 @@ class SendPushNotification extends Notification
 
 
         $data = [
-            "to" => $this->fcmTokens,
+            "registration_ids"  => $this->fcmTokens,
+            "notification" => [
+                "title" => $this->title,
+                "body" => $this->message,
+            ]
+        ];
+        $dataString = json_encode($data);
+
+        $headers = [
+            'Authorization: key=' . env('FIREBASE_SERVER_KEY'),
+            'Content-Type: application/json',
+        ];
+
+        $ch = curl_init();
+
+        curl_setopt($ch, CURLOPT_URL, 'https://fcm.googleapis.com/fcm/send');
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $dataString);
+
+        return curl_exec($ch);
+
+
+
+    }
+    public function toFirebaseById($notifiable)
+    {
+
+
+
+
+        $data = [
+            "to"  => $this->fcmTokens,
             "notification" => [
                 "title" => $this->title,
                 "body" => $this->message,

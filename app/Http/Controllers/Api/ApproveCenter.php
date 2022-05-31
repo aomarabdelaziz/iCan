@@ -28,8 +28,37 @@ class ApproveCenter extends Controller
         }
 
         $status = Center::updateCenterStatus($validator->validated());
-        $centerOwner = User::findOrFail(Center::firstWhere('id' , $request->center_id)->id);
+        $centerOwner = User::findOrFail(Center::firstWhere('id' , $request->center_id)->user_id);
+
         $centerOwner->notify(new SendPushNotification("Center Approval Request","Admin has $status your center request" ,$centerOwner->fcm_token));
+
+
+
+      /*  $data = [
+            "to"  => $centerOwner->fcm_token,
+            "notification" => [
+                "title" => 'Center Approval Request',
+                "body" => 'Admin has $status your center request',
+            ]
+        ];
+        $dataString = json_encode($data);
+
+        $headers = [
+            'Authorization: key=' . env('FIREBASE_SERVER_KEY'),
+            'Content-Type: application/json',
+        ];
+
+        $ch = curl_init();
+
+        curl_setopt($ch, CURLOPT_URL, 'https://fcm.googleapis.com/fcm/send');
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $dataString);
+
+        return curl_exec($ch);*/
+
 
         return $this->success("Center has been $status");
 

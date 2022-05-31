@@ -38,6 +38,8 @@ class CenterBookingController extends Controller
          $userName = Auth::user()->first_name . ' ' . Auth::user()->last_name;
          $centerOwner->notify(new SendPushNotification("Center Booking","$userName has booked\nPhone: $request->phone\nCase Name: $request->case_name\nDate: $request->booking_date ",$centerOwner->fcm_token));
 
+
+
         return $this->success("Booking has been submitted");
     }
 
