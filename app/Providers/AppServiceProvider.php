@@ -4,7 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Notification;
-use App\Channels\FirebaseById;
+use App\Drivers\FirebaseById;
 class AppServiceProvider extends ServiceProvider
 {
     /**

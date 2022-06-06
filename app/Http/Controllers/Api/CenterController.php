@@ -43,7 +43,7 @@ class CenterController extends Controller
 
         $allAdmins = User::whereRole('admin')->get();
         $userName = Auth::user()->first_name . ' ' . Auth::user()->last_name;
-        Notification::send($allAdmins, new SendPushNotification("Creating New Center","$userName Asking for Center Approval",$allAdmins->pluck('fcm_token')->toArray()));
+        Notification::send($allAdmins, new SendPushNotification("Creating New Center","$userName Asking for Center\nApproval",$allAdmins->pluck('fcm_token')->toArray()));
 
         return $this->success('Center has been created');
     }

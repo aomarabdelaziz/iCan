@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Channels;
+namespace App\Drivers;
 use Illuminate\Notifications\Notification;
 
 class FirebaseById
