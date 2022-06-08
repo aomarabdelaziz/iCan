@@ -50,7 +50,7 @@ class VolunteerAcceptRequestController extends Controller
 
         $user = User::findOrFail($userId);
         $userName = Auth::user()->first_name . ' ' . Auth::user()->last_name;
-        $user->notify(new SendPushNotification("Volunteer Request","$userName has been accepted your volunteering request" ,$user->fcm_token));
+        $user->notify(new SendPushNotification("Volunteer Request","$userName has been accepted\n your volunteering request" ,$user->fcm_token));
 
         Volunteer::create(
             [

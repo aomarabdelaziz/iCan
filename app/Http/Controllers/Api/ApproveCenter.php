@@ -30,7 +30,7 @@ class ApproveCenter extends Controller
         $status = Center::updateCenterStatus($validator->validated());
         $centerOwner = User::findOrFail(Center::firstWhere('id' , $request->center_id)->user_id);
 
-        $centerOwner->notify(new SendPushNotification("Center Approval Request","Admin has $status your center request" ,$centerOwner->fcm_token));
+        $centerOwner->notify(new SendPushNotification("Center Approval Request","Admin has $status\n your center request" ,$centerOwner->fcm_token));
 
 
 
