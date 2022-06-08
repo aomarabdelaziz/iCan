@@ -36,7 +36,6 @@ class StoreController extends Controller
 
         if($request->hasFile('store_image')){
             $store_path = Storage::disk('public')->put('images' , $request->file('store_image'));
-
         }
 
         Store::createStore($validator->validated() , $store_path ?? '');
@@ -44,6 +43,7 @@ class StoreController extends Controller
         $allAdmins = User::whereRole('admin')->get();
         $userName = Auth::user()->first_name . ' ' . Auth::user()->last_name;
         Notification::send($allAdmins, new SendPushNotification("Creating New Store","$userName Asking for Store\nApproval",$allAdmins->pluck('fcm_token')->toArray()));
+
 
         return $this->success('Store created successfully');
     }
