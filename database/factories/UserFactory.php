@@ -19,7 +19,7 @@ class UserFactory extends Factory
     {
         return [
             'first_name' => $this->faker->name(),
-            'last_nane' => $this->faker->name(),
+            'last_name' => $this->faker->name(),
             'email' => $this->faker->unique()->safeEmail(),
             'email_verified_at' => now(),
             'password' => bcrypt('admin'), // password
