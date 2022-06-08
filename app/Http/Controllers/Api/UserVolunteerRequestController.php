@@ -34,7 +34,7 @@ class UserVolunteerRequestController extends Controller
         UsersVolunteerRequest::createRequest($validator->validated());
         $allVolunteers = User::whereRole('volunteer')->whereVolunteerType($request->volunteer_type)->get();
         $userName = Auth::user()->first_name . ' ' . Auth::user()->last_name;
-        Notification::send($allVolunteers, new SendPushNotification("Volunteer Request","$userName Asking for Volunteering Request",$allVolunteers->pluck('fcm_token')->toArray()));
+        Notification::send($allVolunteers, new SendPushNotification("Volunteer Request","$userName Asking for\nVolunteering Request",$allVolunteers->pluck('fcm_token')->toArray()));
 
         return $this->success('Volunteer request has been sent successfully');
 
