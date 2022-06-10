@@ -3,6 +3,7 @@
 namespace App\Notifications;
 
 use App\Drivers\FirebaseById;
+use App\Traits\ApiResponser;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -11,7 +12,7 @@ use Kutia\Larafirebase\Messages\FirebaseMessage;
 
 class SendPushNotification extends Notification
 {
-    use Queueable;
+    use Queueable , ApiResponser;
     protected $title;
     protected $message;
     protected $fcmTokens;
@@ -116,7 +117,12 @@ class SendPushNotification extends Notification
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $dataString);
 
-        return curl_exec($ch);
+        $response =  curl_exec($ch);
+        if($response === false) {
+            return $this->error('Notification Failure' , 401 ,curl_error($ch));
+        }
+        curl_close($ch);
+        return json_decode($response);
 
 
 
@@ -150,8 +156,15 @@ class SendPushNotification extends Notification
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $dataString);
 
-        return curl_exec($ch);
 
+
+        $response =  curl_exec($ch);
+        if($response === false) {
+            return $this->error('Notification Failure' , 401 ,curl_error($ch));
+
+        }
+        curl_close($ch);
+        return json_decode($response);
 
 
     }
