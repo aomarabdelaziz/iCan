@@ -118,8 +118,10 @@ class SendPushNotification extends Notification
         curl_setopt($ch, CURLOPT_POSTFIELDS, $dataString);
 
         $response =  curl_exec($ch);
-        if($response === false) {
-            return $this->error('Notification Failure' , 401 ,curl_error($ch));
+
+        $isSent = json_decode($response)->results[0]->message_id ?? '';
+        if(!$isSent){
+            return json_decode($response)->results[0]->error;
         }
         curl_close($ch);
         return json_decode($response);
@@ -159,9 +161,10 @@ class SendPushNotification extends Notification
 
 
         $response =  curl_exec($ch);
-        if($response === false) {
-            return $this->error('Notification Failure' , 401 ,curl_error($ch));
 
+        $isSent = json_decode($response)->results[0]->message_id ?? '';
+        if(!$isSent){
+            return json_decode($response)->results[0]->error;
         }
         curl_close($ch);
         return json_decode($response);

@@ -32,6 +32,7 @@ class CenterController extends Controller
         ]);
 
         if($validator->fails()){
+
             return $this->error('Validation Error' , 401 ,$validator->errors());
         }
 
