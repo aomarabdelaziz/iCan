@@ -117,7 +117,7 @@ class SendPushNotification extends Notification
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $dataString);
 
-        $response =  curl_exec($ch);
+        return $response =  curl_exec($ch);
 
         $isSent = json_decode($response)->results[0]->message_id ?? '';
         if(!$isSent){
@@ -160,7 +160,7 @@ class SendPushNotification extends Notification
 
 
 
-        $response =  curl_exec($ch);
+       return $response =  curl_exec($ch);
 
         $isSent = json_decode($response)->results[0]->message_id ?? '';
         if(!$isSent){
